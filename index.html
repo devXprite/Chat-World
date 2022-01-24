@@ -1,30 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Firebase RealTime Chat</title>
-    <link rel="stylesheet" href="./index.css">
-  </head>
-  <body>
-    <header>
-      <h2>Firebase RealTime Chat</h2>
-    </header>
-    
-    <div id="chat">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firebase RealTime Chat</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./src/css/normalize.css">
+  <script src="./src/css/aos.css"></script>
+  <link rel="stylesheet" href="./src/css/main.css">
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <h1>Chat Project</h1>
+    </nav>
+  </header>
+
+  <main>
+    <section id="chat">
       <!-- messages will display here -->
-      <ul id="messages"></ul>
+      <div class="message-container">
+
+        <!-- <div class="message">
+          <p class="username">Prateek</p>
+          <p class="msg-text">Hello World</p>
+          <p class="msg-time">1 day ago</p>
+        </div> -->
+
+
+      </div>
+
 
       <!-- form to send message -->
       <form id="message-form">
-        <input id="message-input" type="text" />
+        <input id="message-input" type="text" placeholder="Your Message" required />
         <button id="message-btn" type="submit">Send</button>
       </form>
-    </div>
 
-    <!-- scripts -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-    <script src="index.js"></script>
-  </body>
+    </section>
+  </main>
+
+
+  <!-- scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+  <script src="./src/javascript/jquery.min.js"></script>
+  <script src="./src/javascript/aos.js"></script>
+  <script src="./src/javascript/js.cookie.min.js"></script>
+  <script src="./src/javascript/moment.js"></script>
+  <script src="./src/javascript/firebaseConfig.js"></script>
+  <script src="./src/javascript/main.js"></script>
+
+<script>AOS.init();</script>
+</body>
+
 </html>

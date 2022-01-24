@@ -1,0 +1,127 @@
+body {
+  background-color: #121212;
+  min-height: 10vh;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  height: 3.5rem;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-family: "Electrolize", sans-serif;
+  color: chartreuse;
+  z-index: 100;
+  background-color: #121212;
+  box-shadow: #000 0px 2px 6px;
+}
+
+#chat {
+  margin-top: 3.7rem;
+  margin-bottom: 55px;
+  overflow: hidden;
+}
+
+.message {
+  background: #363636;
+  position: relative;
+  padding: 10px;
+  border-radius: 0.5em;
+  width: 75%;
+  margin: 0.5rem 1rem;
+  box-shadow: #000 2px 2px 4px;
+}
+
+.message.send{
+  float: right;
+  background-color: darkslategray;
+}
+
+p.username {
+  font-size: 12px;
+  margin: 0px;
+  color: chartreuse;
+  font-family: "Poppins", sans-serif;
+}
+
+.message.send p.username {
+  text-align: right;
+  display: none;
+}
+
+
+p.msg-text {
+  margin: auto;
+  padding: 3px 10px;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: "Open Sans", sans-serif;
+}
+
+.message.send p.msg-text {
+  text-align: right;
+}
+
+p.msg-time {
+  font-size: 0.65em;
+  width: 100%;
+  text-align: right;
+  margin: -5px;
+  color: #aaa;
+  font-family: "Open Sans", sans-serif;
+}
+
+.message.send p.msg-time {
+  margin: -2px;
+}
+
+
+form#message-form {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background: #666;
+}
+
+input#message-input {
+  background: #242424;
+  height: 30px;
+  width: 75%;
+  margin: 5px;
+  border: 2px #666 solid;
+  border-radius: 0.5em;
+  font-family: "Open Sans", sans-serif;
+    color: #ccc;
+    transition: all 0.3s;
+    padding: 0px 0px 0px 5px;
+}
+
+input#message-input:focus{
+    outline: none;
+    border-color: red;
+}
+
+input#message-input:focus:valid{
+    border-color: lime;
+}
+
+button#message-btn {
+    background-color: lime;
+    height: 30px;
+    border: 2px solid #121212;
+    border-radius: 5px;
+    width: 15%;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+input#message-input::placeholder{
+    color: #eee;
+    opacity: 0.6;
+    padding-left: 10px;
+}
