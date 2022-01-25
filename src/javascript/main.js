@@ -1,5 +1,6 @@
 // initialize database
 const db = firebase.database();
+const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 
 var showLastMsg = 200;
 var username;
@@ -39,11 +40,14 @@ const fetchChat = db.ref("messages/");
 // check for new messages using the onChildAdded event listener
 fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
+  console.log('new msg recived');
+  audio.play();
+
   let messagesData = data.val();
 
   let senderName = messagesData.username;
   let senderMessage = messagesData.message;
-  let type = (username === senderName ? "send" : "receive");
+  let type = (username.toLowerCase() === senderName.toLowerCase() ? "send" : "receive");
 
   let sendingTime = messagesData.timestamp;
   let relativeSendingTime = moment(sendingTime, "x").fromNow();
@@ -69,15 +73,24 @@ if (Cookies.get('username')) {
   alert(`Welcome Back ${username}`);
 
 } else {
-  setUsername()  
+  setUsername()
 }
 
 function setUsername() {
-  username = prompt("Enter Your Username");
-  if (username.length > 4) {
-  Cookies.set('username', username, { expires: 365 })    
-  } else{
+  username = prompt("Enter Your Name");
+
+  if (username == null) {
+    alert("Please to fill your name");
+    setUsername();
+  } else if (username.length > 3) {
+    Cookies.set('username', capitalizeFirstLetter(username), { expires: 365 })
+  } else {
     alert("Please enter real Name.");
     setUsername();
   }
+}
+
+function capitalizeFirstLetter(str) {
+  const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+  return capitalized;
 }

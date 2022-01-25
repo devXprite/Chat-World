@@ -35,6 +35,7 @@ nav {
   border-radius: 0.5em;
   width: 75%;
   margin: 0.5rem 1rem;
+  float: left;
   box-shadow: #000 2px 2px 4px;
 }
 
