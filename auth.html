@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Authentication</title>
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <link rel="shortcut icon" type="image/png" href="https://naishare.com/images/favicon.png" />
+  <style>
+    .forms-out {
+      margin: 0 auto;
+      font-family: "Fira Sans", sans-serif;
+      padding: 15px 0;
+    }
+
+    .forms-in {
+      width: 93%;
+      margin: 0 auto;
+      color: white;
+      padding: 15px 0;
+    }
+
+    .forms-in div {
+      padding: 30px 20px;
+      max-width: 350px;
+      margin: 0 auto;
+      background: #168ab8;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .forms-in h3 {
+      text-align: center;
+    }
+
+    .forms-in input {
+      border: none;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 3px;
+    }
+
+    .forms-in button {
+      border: none;
+      padding: 7px 20px;
+      background: #e8f8ff;
+      color: #168ab8;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .forms-in button:hover {
+      opacity: 0.7;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    #forgot-password {
+      text-align: center;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #forgot-password:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="forms-out">
+    <div class="forms-in">
+      <div id="registration-page" class="hide">
+        <button id="show-login">Sign In</button>
+        <h3>Sign Up</h3>
+
+        Your Name <br />
+        <input type="test" id="registration-name" /><br />
+
+        Email <br />
+        <input type="email" id="registration-email" /><br />
+        Confirm Email <br />
+        <input type="email" id="registration-reemail" autocomplete="disable" /><br />
+        Password <br />
+        <input type="password" id="registration-password" /><br />
+        <center><button id="register">Sign Up</button></center>
+      </div>
+
+      <div id="login-page">
+        <button id="show-register">Sign Up</button>
+        <h3>Sign In</h3>
+        Email <br />
+        <input type="email" id="login-email" /><br />
+        Password <br />
+        <input type="password" id="login-password" /><br />
+        <p id="forgot-password">Forgot Password</p>
+        <center><button id="login">Sign In</button></center>
+      </div>
+
+      <div id="homepage" class="hide">
+        <button id="signout">Sign Out</button>
+        <h3>Logged In</h3>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+  <script src="./src/javascript/firebaseConfig.js"></script>
+  <script src="./src/javascript/js.cookie.min.js"></script>
+  <script src="./src/javascript/auth.js"></script>
+
+</html>

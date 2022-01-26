@@ -38,7 +38,7 @@ function sendMessage(e) {
 const fetchChat = db.ref("messages/");
 
 // check for new messages using the onChildAdded event listener
-fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
+fetchChat.orderByKey().limitToLast(showLastMsg).on("child_added", function (data) {
 
   console.log('new msg recived');
   audio.play();
@@ -50,7 +50,9 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
   let type = (username.toLowerCase() === senderName.toLowerCase() ? "send" : "receive");
 
   let sendingTime = messagesData.timestamp;
-  let relativeSendingTime = moment(sendingTime, "x").fromNow();
+  // let relativeSendingTime = moment(sendingTime, "x").fromNow();
+  let relativeSendingTime = moment(sendingTime).format('MMMM Do YYYY, h:mm:ss a');
+
 
 
   const message = `
