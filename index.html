@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./src/css/normalize.css">
-  <script src="./src/css/aos.css"></script>
+  <link rel="stylesheet" href="./src/css/aos.min.css">
   <link rel="stylesheet" href="./src/css/main.css">
 </head>
 
@@ -50,18 +50,25 @@
     </section>
   </main>
 
-  
+
   <!-- scripts -->
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
   <script src="./src/javascript/jquery.min.js"></script>
+  <script src="./src/javascript/scrollTo.min.js"></script>
   <script src="./src/javascript/aos.js"></script>
   <script src="./src/javascript/js.cookie.min.js"></script>
   <script src="./src/javascript/moment.js"></script>
+  <script src="./src/javascript/moment-timezone-with-data.min.js"></script>
   <script src="./src/javascript/firebaseConfig.js"></script>
   <script src="./src/javascript/main.js"></script>
 
-<script>AOS.init();</script>
+  <script>
+    AOS.init({
+      mirror: true,
+      // offset: 10
+    });
+  </script>
 </body>
 
 </html>
