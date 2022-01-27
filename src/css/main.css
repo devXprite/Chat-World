@@ -82,6 +82,7 @@ p.msg-text {
   /* font-family: 'Roboto', sans-serif; */
   /* font-family: "Open Sans", sans-serif; */
   font-family: "Electrolize", sans-serif;
+  word-break: break-word;
 }
 
 .message.send p.msg-text {
