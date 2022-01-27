@@ -22,6 +22,21 @@ nav {
   box-shadow: #000 0px 2px 6px;
 }
 
+nav h1 {
+  background: linear-gradient(
+    316deg,
+    #0ff 10%,
+    #ff0,
+    orange 40%,
+    blueviolet 60%,
+    #0ff 80%
+  );
+  background-size: 200% auto;
+  animation: shine 7s linear infinite alternate;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 #chat {
   margin-top: 3.7rem;
   margin-bottom: 55px;
@@ -40,11 +55,11 @@ nav {
   transition: all 0.3s;
 }
 
-.message:hover{
+.message:hover {
   transform: scale(1.1) !important;
 }
 
-.message.send{
+.message.send {
   float: right;
   background-color: darkslategray;
 }
@@ -60,7 +75,6 @@ p.username {
   text-align: right;
   display: none;
 }
-
 
 p.msg-text {
   margin: auto;
@@ -87,7 +101,6 @@ p.msg-time {
   margin: -2px;
 }
 
-
 form#message-form {
   width: 100%;
   position: fixed;
@@ -103,55 +116,64 @@ input#message-input {
   border: 2px #666 solid;
   border-radius: 0.5em;
   font-family: "Open Sans", sans-serif;
-    color: #ccc;
-    transition: all 0.3s;
-    padding: 0px 0px 0px 5px;
+  color: #ccc;
+  transition: all 0.3s;
+  padding: 0px 0px 0px 5px;
 }
 
-input#message-input:focus{
-    outline: none;
-    border-color: red;
+input#message-input:focus {
+  outline: none;
+  border-color: red;
 }
 
-input#message-input:focus:valid{
-    border-color: lime;
+input#message-input:focus:valid {
+  border-color: lime;
 }
 
 button#message-btn {
-    background-color: lime;
-    height: 30px;
-    border: 2px solid #121212;
-    border-radius: 5px;
-    width: 15%;
+  background-color: lime;
+  height: 30px;
+  border: 2px solid #121212;
+  border-radius: 5px;
+  width: 15%;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
 }
 
-input#message-input::placeholder{
-    color: #eee;
-    opacity: 0.6;
-    padding-left: 10px;
+input#message-input::placeholder {
+  color: #eee;
+  opacity: 0.6;
+  padding-left: 10px;
 }
 
-.loader{
+.loader {
   position: fixed;
   top: 42%;
   font-size: 2em;
   text-align: center;
   width: 100%;
   color: #777;
-  font-family: 'Electrolize';
+  font-family: "Electrolize";
   animation: loader infinite 0.5s alternate;
 }
 
 @keyframes loader {
-  from{color: #999;}
-  to{color: #555;}
+  from {
+    color: #999;
+  }
+  to {
+    color: #555;
+  }
 }
 
-
 @media screen and (min-width: 600px) {
-  .message{
-    max-width: 60%;
+  .message {
+    max-width: 50%;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
   }
 }

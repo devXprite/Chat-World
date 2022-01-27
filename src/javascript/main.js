@@ -2,8 +2,6 @@
 const db = firebase.database();
 const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 
-// moment.tz.setDefault("Asia/Kolkata");
-
 var showLastMsg = 200;
 var username = 'user';
 
@@ -54,8 +52,8 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
     let messagesData = data.val();
 
-    let senderName = messagesData.username;
-    let senderMessage = messagesData.message;
+    let senderName = filterXSS(messagesData.username);
+    let senderMessage = filterXSS(messagesData.message);
     let type = (username.toLowerCase() === senderName.toLowerCase() ? "send" : "receive");
 
     let sendingTimeLocal = messagesData.localTimestamp;
@@ -117,12 +115,12 @@ function capitalizeFirstLetter(str) {
 }
 
 hideLoader = () => {
-
   if (($(".loader").css('display')) != 'none') {
     $(".loader").hide();
   }
-
 }
+
+fetch('https://server8299.000webhostapp.com/server/chat/');
 
 setTimeout(() => {
   scrollToBottom();
