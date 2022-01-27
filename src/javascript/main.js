@@ -5,13 +5,12 @@ const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 // moment.tz.setDefault("Asia/Kolkata");
 
 var showLastMsg = 200;
-var username;
+var username = 'user';
 
-scrollToBottom = () =>{
-  $('body').scrollTo('100%',{interrupt:true,duration:1000,queue:true})
+scrollToBottom = () => {
+  $('body').scrollTo('100%', { interrupt: true, duration: 1000, queue: true })
 }
-// submit form
-// listen for submit event on the form and call the postChat function
+
 document.getElementById("message-form").addEventListener("submit", sendMessage);
 
 // send message to db
@@ -34,7 +33,7 @@ function sendMessage(e) {
     username,
     message,
     localTimestamp,
-    serverTimestamp:firebase.database.ServerValue.TIMESTAMP
+    serverTimestamp: firebase.database.ServerValue.TIMESTAMP
   });
 
   $('#message-input').val('');
@@ -48,6 +47,7 @@ const fetchChat = db.ref("messages/");
 fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
   console.log('new msg recived');
+  hideLoader();
   audio.play();
 
   try {
@@ -62,7 +62,6 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
     let sendingTimeServer = messagesData.serverTimestamp;
     // let relativeSendingTime = moment(sendingTime, "x").fromNow();
     let relativeSendingTime = moment(sendingTimeServer).format('MMMM Do YYYY, h:mm:ss a');
-
 
 
     const message = `
@@ -117,6 +116,15 @@ function capitalizeFirstLetter(str) {
   return capitalized;
 }
 
+hideLoader = () => {
+
+  if (($(".loader").css('display')) != 'none') {
+    $(".loader").hide();
+  }
+
+}
+
 setTimeout(() => {
   scrollToBottom();
-  }, 3000);
+  $('#message-input').attr('placeholder', `Send message as ${username}`);
+}, 4000);

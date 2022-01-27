@@ -29,14 +29,19 @@ nav {
 }
 
 .message {
-  background: #363636;
+  background: #242424;
   position: relative;
   padding: 10px;
   border-radius: 0.5em;
   width: 75%;
   margin: 0.5rem 1rem;
   float: left;
-  box-shadow: #000 2px 2px 4px;
+  box-shadow: #000 2px 2px 4px, inset #6d6d6d 2px 2px 4px;
+  transition: all 0.3s;
+}
+
+.message:hover{
+  transform: scale(1.1) !important;
 }
 
 .message.send{
@@ -61,7 +66,8 @@ p.msg-text {
   margin: auto;
   padding: 3px 10px;
   /* font-family: 'Roboto', sans-serif; */
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Electrolize", sans-serif;
 }
 
 .message.send p.msg-text {
@@ -125,4 +131,27 @@ input#message-input::placeholder{
     color: #eee;
     opacity: 0.6;
     padding-left: 10px;
+}
+
+.loader{
+  position: fixed;
+  top: 42%;
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  color: #777;
+  font-family: 'Electrolize';
+  animation: loader infinite 0.5s alternate;
+}
+
+@keyframes loader {
+  from{color: #999;}
+  to{color: #555;}
+}
+
+
+@media screen and (min-width: 600px) {
+  .message{
+    max-width: 60%;
+  }
 }

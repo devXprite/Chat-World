@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./src/css/normalize.css">
   <link rel="stylesheet" href="./src/css/aos.min.css">
   <link rel="stylesheet" href="./src/css/main.css">
+  
 </head>
 
 <body>
@@ -30,6 +31,7 @@
     <section id="chat">
       <!-- messages will display here -->
       <div class="message-container">
+        <p class="loader">Loading Messages...</p>
 
         <!-- <div class="message">
           <p class="username">Prateek</p>
@@ -65,8 +67,7 @@
 
   <script>
     AOS.init({
-      mirror: true,
-      // offset: 10
+      mirror: true
     });
   </script>
 </body>
