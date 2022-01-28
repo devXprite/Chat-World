@@ -126,7 +126,7 @@ hideLoader = () => {
   }
 }
 
-// fetch('https://server8299.000webhostapp.com/server/chat/');
+fetch('https://server8299.000webhostapp.com/server/chat/');
 
 db.ref("totalHits").on("value", (snapshot) => {
   $("#ttl-view").html(snapshot.val());
