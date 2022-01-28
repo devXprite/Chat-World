@@ -37,6 +37,12 @@ nav h1 {
   -webkit-text-fill-color: transparent;
 }
 
+nav i{
+font-size: 1.5em !important;
+position: absolute;
+right: 1em;
+color: lime;
+}
 #chat {
   margin-top: 3.7rem;
   margin-bottom: 55px;
@@ -152,6 +158,16 @@ input#message-input::placeholder {
   padding-left: 10px;
 }
 
+section#info{
+  top: 3.75rem;
+  width: 100%;
+    height: calc(100vh - 3.75rem);
+    background: #ff3535;
+    z-index: 10;
+    position: fixed;
+    /* display: none; */
+}
+
 .loader {
   position: fixed;
   top: 42%;
@@ -182,4 +198,12 @@ input#message-input::placeholder {
   to {
     background-position: 200% center;
   }
+}
+
+.scrollbar{
+  height: 0.25rem;
+  background: linear-gradient(to right, #30cfd0 0%, lawngreen 100%);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 }

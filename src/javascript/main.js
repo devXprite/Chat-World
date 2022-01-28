@@ -42,6 +42,11 @@ function sendMessage(e) {
   $('#message-input').val('');
 }
 
+db.ref("/").on("child_added",function (data) {
+  console.log(`Total Messages : ${data.numChildren()}`);
+  
+});
+
 // display the messages
 // reference the collection created earlier
 const fetchChat = db.ref("messages/");
@@ -88,7 +93,7 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 if (Cookies.get('username')) {
 
   username = Cookies.get('username');
-  alert(`Welcome Back ${username}`);
+  // alert(`Welcome Back ${username}`);
 
 } else {
   setUsername()
@@ -131,3 +136,15 @@ setTimeout(() => {
   scrollToBottom();
   $('#message-input').attr('placeholder', `Send message as ${username}`);
 }, 4000);
+
+gsap.to('.scrollbar', {
+  scrollTrigger: {
+      trigger: 'body',
+      start: "top 0px",
+      end: "bottom 100%",
+      markers: false,
+      scrub: true
+  },
+  ease: 'none',
+  width: '100%'
+});
