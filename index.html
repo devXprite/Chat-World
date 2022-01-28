@@ -27,13 +27,24 @@
     <div class="scrollbar"></div>
     <nav>
       <h1>World Chat App</h1>
-      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      <i class="fa fa-info-circle" aria-hidden="true" onclick="toogleInfo()"></i>
     </nav>
   </header>
 
   <main>
 
-    
+    <section id="info">
+
+      <h2>About</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, eligendi libero maiores corporis, laudantium at
+        iste ipsam nemo, esse ipsum nobis nesciunt exercitationem qui accusantium accusamus deleniti incidunt id
+        dignissimos?</p> <br><br>
+        
+    <p class="details"><b>Total Messages : </b> <span id="ttl-msg"> 00</span> </p>
+    <p class="details"><b>Total Views : </b> <span id="ttl-view"> 00</span> </p>
+    <p class="details"><b>Current Time : </b> <span id="crt-time"> 00:00:00</span> </p>
+
+    </section>
 
     <section id="chat">
       <!-- messages will display here -->

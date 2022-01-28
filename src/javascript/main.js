@@ -28,10 +28,6 @@ function sendMessage(e) {
   scrollToBottom();
 
 
-  document
-    .getElementById("message-input")
-    .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-
   db.ref("messages/" + localTimestamp).set({
     username,
     message,
@@ -42,9 +38,9 @@ function sendMessage(e) {
   $('#message-input').val('');
 }
 
-db.ref("/").on("child_added",function (data) {
-  console.log(`Total Messages : ${data.numChildren()}`);
-  
+db.ref("/messages").on("value", function (data) {
+  $("#ttl-msg").html(data.val().length);
+  $("#ttl-msg").html('n/a');
 });
 
 // display the messages
@@ -132,19 +128,55 @@ hideLoader = () => {
 
 // fetch('https://server8299.000webhostapp.com/server/chat/');
 
+db.ref("totalHits").on("value", (snapshot) => {
+  $("#ttl-view").html(snapshot.val());
+});
+
+db.ref("totalHits").transaction(
+  (totalHits) => totalHits + 1,
+  (error) => {
+    if (error) {
+      console.log(error);
+    }
+  }
+);
+
 setTimeout(() => {
   scrollToBottom();
   $('#message-input').attr('placeholder', `Send message as ${username}`);
 }, 4000);
 
+setInterval(() => {
+  $("#crt-time").html(moment().format('HH : mm : ss '))
+}, 1000);
+
 gsap.to('.scrollbar', {
   scrollTrigger: {
-      trigger: 'body',
-      start: "top 0px",
-      end: "bottom 100%",
-      markers: false,
-      scrub: true
+    trigger: 'body',
+    start: "top 0px",
+    end: "bottom 100%",
+    markers: false,
+    scrub: true
   },
   ease: 'none',
   width: '100%'
 });
+
+toogleInfo = () => {
+
+  if (($("#info").css('left')) == '0px') {
+    gsap.to('#info', {
+      ease: 'bounce',
+      left: '100%',
+      duration: 1.5
+    });
+  } else {
+    gsap.to('#info', {
+      ease: 'bounce',
+      left: '0%',
+      duration: 1.5
+
+    });
+  }
+
+}

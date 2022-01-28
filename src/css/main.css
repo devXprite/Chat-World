@@ -1,7 +1,7 @@
 body {
   background-color: #121212;
   min-height: 10vh;
-  color: #eee;
+  color: #ddd;
   margin: 0;
   padding: 0;
 }
@@ -37,11 +37,11 @@ nav h1 {
   -webkit-text-fill-color: transparent;
 }
 
-nav i{
-font-size: 1.5em !important;
-position: absolute;
-right: 1em;
-color: lime;
+nav i {
+  font-size: 1.5em !important;
+  position: absolute;
+  right: 1em;
+  color: lime;
 }
 #chat {
   margin-top: 3.7rem;
@@ -158,14 +158,33 @@ input#message-input::placeholder {
   padding-left: 10px;
 }
 
-section#info{
-  top: 3.75rem;
+section#info {
+  top: 0px;
   width: 100%;
-    height: calc(100vh - 3.75rem);
-    background: #ff3535;
-    z-index: 10;
-    position: fixed;
-    /* display: none; */
+  left: 100%;
+  height: 100vh;
+  background: #111;
+  z-index: 10;
+  position: fixed;
+  padding-top: 3.75rem;
+  font-family: "Electrolize", sans-serif;
+  /* display: none; */
+}
+
+section#info h2 {
+  color: lime;
+  text-align: center;
+}
+
+section#info p {
+  width: 90%;
+  margin: auto;
+  text-align: justify;
+  color: #bbb;
+}
+
+p.details b{
+  color: orange;
 }
 
 .loader {
@@ -200,7 +219,7 @@ section#info{
   }
 }
 
-.scrollbar{
+.scrollbar {
   height: 0.25rem;
   background: linear-gradient(to right, #30cfd0 0%, lawngreen 100%);
   position: fixed;
