@@ -161,7 +161,7 @@ scrollBarAnimation = () =>{
       trigger: '#chat',
       start: "top 0px",
       end: "bottom 100%",
-      markers: true,
+      markers: false,
       scrub: true
     },
     ease: 'none',
@@ -196,7 +196,6 @@ toogleInfo = () => {
       duration: 1.5
     });
   }
-
 }
 
 (Modernizr.cookies) ? $("#check-cookies").html("Supported").addClass("supported") : $("#check-cookies").html("Not Supported").addClass("notsupported");
