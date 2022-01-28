@@ -9,6 +9,11 @@ scrollToBottom = () => {
   $('body').scrollTo('100%', { interrupt: true, duration: 1000, queue: true })
 }
 
+
+AOS.init({
+  mirror: true
+});
+
 document.getElementById("message-form").addEventListener("submit", sendMessage);
 
 // send message to db
@@ -53,7 +58,7 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
     let messagesData = data.val();
 
     let senderName = filterXSS(messagesData.username);
-    let senderMessage = filterXSS(messagesData.message);
+    let senderMessage = linkifyStr(filterXSS(messagesData.message));
     let type = (username.toLowerCase() === senderName.toLowerCase() ? "send" : "receive");
 
     let sendingTimeLocal = messagesData.localTimestamp;
@@ -120,7 +125,7 @@ hideLoader = () => {
   }
 }
 
-fetch('https://server8299.000webhostapp.com/server/chat/');
+// fetch('https://server8299.000webhostapp.com/server/chat/');
 
 setTimeout(() => {
   scrollToBottom();
