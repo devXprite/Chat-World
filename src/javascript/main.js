@@ -21,7 +21,7 @@ function sendMessage(e) {
   e.preventDefault();
 
   // get values to be submitted
-  var localTimestamp = moment.tz("Asia/Taipei").format("x");
+  var localTimestamp = moment.tz("Asia/Kolkata").format("x");
 
   var message = $('#message-input').val();
   console.log(message);
@@ -38,10 +38,7 @@ function sendMessage(e) {
   $('#message-input').val('');
 }
 
-db.ref("/messages").on("value", function (data) {
-  $("#ttl-msg").html(data.val().length);
-  $("#ttl-msg").html('n/a');
-});
+
 
 // display the messages
 // reference the collection created earlier
@@ -83,21 +80,40 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
 });
 
+db.ref("totalHits").on("value", (snapshot) => {
+  $("#ttl-view").html(snapshot.val());
+});
+
+db.ref("totalHits").transaction(
+  (totalHits) => totalHits + 1,
+  (error) => {
+    if (error) {
+      console.log(error);
+    }
+  }
+);
+
+db.ref("/messages").on("value", function (data) {
+  $("#ttl-msg").html(data.val().length);
+  $("#ttl-msg").html('n/a');
+});
 
 //Cookies System
 
-if (Cookies.get('username')) {
-
-  username = Cookies.get('username');
-  // alert(`Welcome Back ${username}`);
-
+if (Modernizr.cookies) {
+  if (Cookies.get('username')) {
+    username = Cookies.get('username');
+    alert(`Welcome Back ${username}`);
+  } else {
+    setUsername();
+  }
 } else {
-  setUsername()
+  username = prompt("Enter Your Name");
+  alert("Cookies are blocked or not supported by your browser!");
 }
 
 function setUsername() {
   username = prompt("Enter Your Name");
-
   try {
     if (username == null) {
       alert("Please to fill your name");
@@ -111,8 +127,6 @@ function setUsername() {
   } catch (error) {
     console.log(error);
   }
-
-
 }
 
 function capitalizeFirstLetter(str) {
@@ -128,22 +142,12 @@ hideLoader = () => {
 
 fetch('https://server8299.000webhostapp.com/server/chat/');
 
-db.ref("totalHits").on("value", (snapshot) => {
-  $("#ttl-view").html(snapshot.val());
-});
 
-db.ref("totalHits").transaction(
-  (totalHits) => totalHits + 1,
-  (error) => {
-    if (error) {
-      console.log(error);
-    }
-  }
-);
 
 setTimeout(() => {
   scrollToBottom();
   $('#message-input').attr('placeholder', `Send message as ${username}`);
+  $("#your-name").html(username);
 }, 4000);
 
 setInterval(() => {
@@ -170,13 +174,29 @@ toogleInfo = () => {
       left: '100%',
       duration: 1.5
     });
+    gsap.to('nav i', {
+      ease: 'bounce',
+      color: 'orange',
+      rotate: 0,
+      duration: 1.5
+    });
   } else {
     gsap.to('#info', {
       ease: 'bounce',
       left: '0%',
       duration: 1.5
-
+    });
+    gsap.to('nav i', {
+      ease: 'bounce',
+      color: 'lime',
+      rotate: 180,
+      duration: 1.5
     });
   }
 
 }
+
+(Modernizr.cookies) ? $("#check-cookies").html("Supported").addClass("supported") : $("#check-cookies").html("Not Supported").addClass("notsupported");
+(Modernizr.emoji) ? $("#check-emoji").html("Supported").addClass("supported") : $("#check-emoji").html("Not Supported").addClass("notsupported");
+(Modernizr.unicode) ? $("#check-unicode").html("Supported").addClass("supported") : $("#check-unicode").html("Not Supported").addClass("notsupported");
+(Modernizr.webaudio) ? $("#check-audio").html("Supported").addClass("supported") : $("#check-audio").html("Not Supported").addClass("notsupported");

@@ -38,10 +38,10 @@ nav h1 {
 }
 
 nav i {
-  font-size: 1.5em !important;
+  font-size: 1.4em !important;
   position: absolute;
-  right: 1em;
-  color: lime;
+  right: 0.5em;
+  color: orange;
 }
 #chat {
   margin-top: 3.7rem;
@@ -220,9 +220,17 @@ p.details b{
 }
 
 .scrollbar {
-  height: 0.25rem;
+  height: 0.2rem;
   background: linear-gradient(to right, #30cfd0 0%, lawngreen 100%);
   position: fixed;
   top: 0;
   z-index: 1000;
+}
+
+.supported{
+  color: lime;
+}
+
+.notsupported{
+  color: orangered;
 }
