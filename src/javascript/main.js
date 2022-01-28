@@ -148,23 +148,26 @@ setTimeout(() => {
   scrollToBottom();
   $('#message-input').attr('placeholder', `Send message as ${username}`);
   $("#your-name").html(username);
-}, 4000);
+  scrollBarAnimation();
+}, 3000);
 
 setInterval(() => {
   $("#crt-time").html(moment().format('HH : mm : ss '))
 }, 1000);
 
-gsap.to('.scrollbar', {
-  scrollTrigger: {
-    trigger: 'body',
-    start: "top 0px",
-    end: "bottom 100%",
-    markers: false,
-    scrub: true
-  },
-  ease: 'none',
-  width: '100%'
-});
+scrollBarAnimation = () =>{
+  gsap.to('.scrollbar', {
+    scrollTrigger: {
+      trigger: '#chat',
+      start: "top 0px",
+      end: "bottom 100%",
+      markers: true,
+      scrub: true
+    },
+    ease: 'none',
+    width: '100%'
+  });
+}
 
 toogleInfo = () => {
 
