@@ -94,9 +94,9 @@ db.ref("totalHits").transaction(
 );
 
 db.ref("/messages").on("value", function (data) {
-  $("#ttl-msg").html(data.val().length);
-  $("#ttl-msg").html('n/a');
+  $("#ttl-msg").html(data.numChildren());
 });
+
 
 //Cookies System
 
@@ -108,8 +108,8 @@ if (Modernizr.cookies) {
     setUsername();
   }
 } else {
-  username = prompt("Enter Your Name");
   alert("Cookies are blocked or not supported by your browser!");
+  setUsernameWithoutCokies();
 }
 
 function setUsername() {
@@ -129,6 +129,21 @@ function setUsername() {
   }
 }
 
+function setUsernameWithoutCokies() {
+
+  username = prompt("Enter Your Name");
+
+  if (username == null) {
+    alert("Please to fill your name");
+    setUsername();
+  } else if (username.length > 3) {
+    console.log(`Username : ${username}`);
+  } else {
+    alert("Please enter real Name.");
+    setUsername();
+  }
+}
+
 function capitalizeFirstLetter(str) {
   const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
   return capitalized;
@@ -142,7 +157,12 @@ hideLoader = () => {
 
 fetch('https://server8299.000webhostapp.com/server/chat/');
 
-
+signOut = () => {
+  if (confirm('Do your really want to change name?')) {
+    (Modernizr.cookies) ? Cookies.remove('username') : location.reload();
+    location.reload();
+  }
+}
 
 setTimeout(() => {
   scrollToBottom();
@@ -155,7 +175,7 @@ setInterval(() => {
   $("#crt-time").html(moment().format('HH : mm : ss '))
 }, 1000);
 
-scrollBarAnimation = () =>{
+scrollBarAnimation = () => {
   gsap.to('.scrollbar', {
     scrollTrigger: {
       trigger: '#chat',
@@ -198,7 +218,7 @@ toogleInfo = () => {
   }
 }
 
-(Modernizr.cookies) ? $("#check-cookies").html("Supported").addClass("supported") : $("#check-cookies").html("Not Supported").addClass("notsupported");
+(Modernizr.cookies) ? $("#check-cookies").html("Enabled").addClass("supported") : $("#check-cookies").html("Disabled").addClass("notsupported");
 (Modernizr.emoji) ? $("#check-emoji").html("Supported").addClass("supported") : $("#check-emoji").html("Not Supported").addClass("notsupported");
 (Modernizr.unicode) ? $("#check-unicode").html("Supported").addClass("supported") : $("#check-unicode").html("Not Supported").addClass("notsupported");
 (Modernizr.webaudio) ? $("#check-audio").html("Supported").addClass("supported") : $("#check-audio").html("Not Supported").addClass("notsupported");
