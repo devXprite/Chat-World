@@ -1,8 +1,8 @@
 <!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/197e8649-142e-43e2-8b74-c353c30dbff4/deploy-status)](https://app.netlify.com/sites/realtime-web-chatapp/deploys) -->
 
 <div align="center">
-    <a href="https://github.com/7ORP3DO/realtime-chat-app">
-    <img src="./screenshot/logo.png" alt="Logo" width="280" height="40">
+<!--     <a href="https://github.com/7ORP3DO/realtime-chat-app">
+    <img src="./screenshot/logo.png" alt="Logo" width="280" height="40"> -->
   </a>
   <h3 align="center">Realtime Web Chatapp</h3>
 
