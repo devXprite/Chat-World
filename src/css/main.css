@@ -310,3 +310,8 @@ p.details b {
 .fa-sign-out{
   color: orangered;
 }
+
+#info > p:nth-child(4) > a{
+  color: orange;
+  text-decoration: none;
+}
