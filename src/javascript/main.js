@@ -2,7 +2,7 @@
 const db = firebase.database();
 const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 
-var showLastMsg = 150;
+var showLastMsg = 100;
 var username = 'user';
 
 scrollToBottom = () => {
@@ -64,7 +64,7 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
 
     const message = `
-      <div class="message ${type}" data-aos="zoom-in" data-aos-anchor-placement="bottom">
+      <div class="message ${type}" >
           <p class="username">${senderName}</p>
           <p class="msg-text">${senderMessage}</p>
           <p class="msg-time">${relativeSendingTime}</p>
