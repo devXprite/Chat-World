@@ -4,6 +4,7 @@ const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 
 var showLastMsg = 100;
 var username = 'user';
+var country = 'IN';
 
 scrollToBottom = () => {
   $('body').scrollTo('100%', { duration: 1000 })
@@ -12,6 +13,16 @@ scrollToBottom = () => {
 AOS.init({
   mirror: true
 });
+
+$.ajax({
+        url: "https://ipinfo.io/json",
+        type: 'GET',
+        dataType: 'json',
+        success: function(res) {
+            country: res.country;
+ 
+         }
+    });
 
 document.getElementById("message-form").addEventListener("submit", sendMessage);
 
@@ -29,6 +40,7 @@ function sendMessage(e) {
     db.ref("messages/" + localTimestamp).set({
       username,
       message,
+      country,
       localTimestamp,
       serverTimestamp: firebase.database.ServerValue.TIMESTAMP
     });
