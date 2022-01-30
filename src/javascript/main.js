@@ -6,7 +6,7 @@ var showLastMsg = 200;
 var username = 'user';
 
 scrollToBottom = () => {
-  $('body').scrollTo('100%', { interrupt: true, duration: 1000, queue: true })
+  $('body').scrollTo('100%', { duration: 1000})
 }
 
 
@@ -137,7 +137,7 @@ function setUsernameWithoutCokies() {
     alert("Please to fill your name");
     setUsername();
   } else if (username.length > 3) {
-    console.log(`Username : ${username}`);
+    // console.log(`Username : ${username}`);
   } else {
     alert("Please enter real Name.");
     setUsername();
@@ -168,7 +168,7 @@ setTimeout(() => {
   scrollToBottom();
   $('#message-input').attr('placeholder', `Send message as ${username}`);
   $("#your-name").html(username);
-  scrollBarAnimation();
+  // scrollBarAnimation();
 }, 3000);
 
 setInterval(() => {
@@ -184,7 +184,7 @@ scrollBarAnimation = () => {
       markers: false,
       scrub: true
     },
-    ease: 'none',
+    // ease: 'none',
     width: '100%'
   });
 }
