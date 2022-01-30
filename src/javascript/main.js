@@ -24,7 +24,7 @@ function sendMessage(e) {
   var localTimestamp = moment.tz("Asia/Kolkata").format("x");
 
   var message = $('#message-input').val();
-  console.log(message);
+  // console.log(message);
   scrollToBottom();
 
 
@@ -47,7 +47,7 @@ const fetchChat = db.ref("messages/");
 // check for new messages using the onChildAdded event listener
 fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
-  console.log('new msg recived');
+  // console.log('new msg recived');
   hideLoader();
   audio.play();
 
