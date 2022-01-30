@@ -2,13 +2,12 @@
 const db = firebase.database();
 const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 
-var showLastMsg = 200;
+var showLastMsg = 150;
 var username = 'user';
 
 scrollToBottom = () => {
-  $('body').scrollTo('100%', { duration: 1000})
+  $('body').scrollTo('100%', { duration: 1000 })
 }
-
 
 AOS.init({
   mirror: true
@@ -27,13 +26,12 @@ function sendMessage(e) {
   // console.log(message);
   scrollToBottom();
 
-
-  db.ref("messages/" + localTimestamp).set({
-    username,
-    message,
-    localTimestamp,
-    serverTimestamp: firebase.database.ServerValue.TIMESTAMP
-  });
+    db.ref("messages/" + localTimestamp).set({
+      username,
+      message,
+      localTimestamp,
+      serverTimestamp: firebase.database.ServerValue.TIMESTAMP
+    });
 
   $('#message-input').val('');
 }
@@ -56,7 +54,7 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
     let messagesData = data.val();
 
     let senderName = filterXSS(messagesData.username);
-    let senderMessage = linkifyStr(filterXSS(messagesData.message));
+    let senderMessage = spamFilter(linkifyStr(filterXSS(messagesData.message)));
     let type = (username.toLowerCase() === senderName.toLowerCase() ? "send" : "receive");
 
     let sendingTimeLocal = messagesData.localTimestamp;
