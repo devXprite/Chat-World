@@ -19,7 +19,7 @@ $.ajax({
         type: 'GET',
         dataType: 'json',
         success: function(res) {
-            country: res.country;
+            country = res.country;
  
          }
     });
