@@ -73,7 +73,7 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
     document.querySelector('.message-container').innerHTML += message;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 
 });
