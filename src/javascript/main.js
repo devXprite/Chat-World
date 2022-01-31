@@ -79,7 +79,7 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
 
     const message = `
       <div class="message ${type}" >
-          <p class="username">${senderName} <spam class ="county">${countryName + " " + countryEmoji}</spam> </p>
+          <p class="username">${senderName} <spam class ="county">from ${countryName + " " + countryEmoji}</spam> </p>
           <p class="msg-text">${senderMessage}</p>
           <p class="msg-time">${relativeSendingTime}</p>
       </div>
