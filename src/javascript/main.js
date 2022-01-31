@@ -5,7 +5,6 @@ const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 var showLastMsg = 100;
 var username = 'user';
 var country = 'IN';
-var countryFlags = [];
 
 scrollToBottom = () => {
   $('body').scrollTo('100%', { duration: 1000 })
@@ -13,15 +12,6 @@ scrollToBottom = () => {
 
 AOS.init({
   mirror: true
-});
-
-$.ajax({
-  url: "./../../src/json/countlyFlags.json",
-  type: 'GET',
-  dataType: 'json',
-  success: function (res) {
-    countryFlags = res;
-  }
 });
 
 
