@@ -180,6 +180,7 @@ setTimeout(() => {
   scrollToBottom();
   $('#message-input').attr('placeholder', `Send message as ${username}`);
   $("#your-name").html(username);
+  $("#your-country").html(countryFlags[country].name + ' ' + countryFlags[country].emoji);
   // scrollBarAnimation();
 }, 3000);
 
