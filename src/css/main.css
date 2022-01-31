@@ -192,9 +192,9 @@ p.details b {
   --border-width: 3px;
   appearance: none;
   left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: 10.5vh;
+  transform: translateX(-50%);
+  position: absolute;
+  bottom: 10.5vh;
   padding: 1em 2em;
   border: 0;
   background-color: transparent;
@@ -240,7 +240,7 @@ p.details b {
   animation-play-state: running;
 }
 
-#info button:hover{
+#info button:hover {
   color: #eee;
 }
 
@@ -307,11 +307,17 @@ p.details b {
   color: orangered;
 }
 
-.fa-sign-out{
+.fa-sign-out {
   color: orangered;
 }
 
-#info > p:nth-child(4) > a{
+#info > p:nth-child(4) > a {
   color: orange;
   text-decoration: none;
+}
+
+spam.county {
+  color: #aaa;
+  padding-left: 5px;
+  font-size: 10px;
 }

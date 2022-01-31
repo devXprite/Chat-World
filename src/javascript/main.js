@@ -5,6 +5,7 @@ const audio = new Audio('./src/sound/Pop Up Sms Tone.mp3');
 var showLastMsg = 100;
 var username = 'user';
 var country = 'IN';
+var countryFlags = [];
 
 scrollToBottom = () => {
   $('body').scrollTo('100%', { duration: 1000 })
@@ -15,14 +16,23 @@ AOS.init({
 });
 
 $.ajax({
-        url: "https://ipinfo.io/json",
-        type: 'GET',
-        dataType: 'json',
-        success: function(res) {
-            country = res.country;
- 
-         }
-    });
+  url: "./../../src/json/countlyFlags.json",
+  type: 'GET',
+  dataType: 'json',
+  success: function (res) {
+    countryFlags = res;
+  }
+});
+
+
+$.ajax({
+  url: "https://ipinfo.io/json",
+  type: 'GET',
+  dataType: 'json',
+  success: function (res) {
+    country = res.country;
+  }
+});
 
 document.getElementById("message-form").addEventListener("submit", sendMessage);
 
@@ -37,13 +47,13 @@ function sendMessage(e) {
   // console.log(message);
   scrollToBottom();
 
-    db.ref("messages/" + localTimestamp).set({
-      username,
-      message,
-      country,
-      localTimestamp,
-      serverTimestamp: firebase.database.ServerValue.TIMESTAMP
-    });
+  db.ref("messages/" + localTimestamp).set({
+    username,
+    message,
+    country,
+    localTimestamp,
+    serverTimestamp: firebase.database.ServerValue.TIMESTAMP
+  });
 
   $('#message-input').val('');
 }
@@ -73,11 +83,13 @@ fetchChat.limitToLast(showLastMsg).on("child_added", function (data) {
     let sendingTimeServer = messagesData.serverTimestamp;
     // let relativeSendingTime = moment(sendingTime, "x").fromNow();
     let relativeSendingTime = moment(sendingTimeServer).format('MMMM Do YYYY, h:mm:ss a');
+    let countryName = countryFlags[messagesData.country].name;
+    let countryEmoji = countryFlags[messagesData.country].emoji;
 
 
     const message = `
       <div class="message ${type}" >
-          <p class="username">${senderName}</p>
+          <p class="username">${senderName} <spam class ="county">${countryName + " " + countryEmoji}</spam> </p>
           <p class="msg-text">${senderMessage}</p>
           <p class="msg-time">${relativeSendingTime}</p>
       </div>
