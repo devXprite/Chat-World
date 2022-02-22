@@ -167,8 +167,6 @@ hideLoader = () => {
   }
 }
 
-fetch('https://server8299.000webhostapp.com/server/chat/');
-
 signOut = () => {
   if (confirm('Do your really want to change name?')) {
     (Modernizr.cookies) ? Cookies.remove('username') : location.reload();
