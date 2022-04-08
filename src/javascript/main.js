@@ -120,20 +120,20 @@ if (Modernizr.cookies) {
     setUsername();
   }
 } else {
-  alert("Cookies are blocked or not supported by your browser!");
+  alert("Cookies are blocked or not supported by your browser !!!");
   setUsernameWithoutCokies();
 }
 
 function setUsername() {
-  username = prompt("Enter Your Name");
+  username = prompt("Enter Your Name:");
   try {
     if (username == null) {
-      alert("Please to fill your name");
+      alert("Please to fill your name:");
       setUsername();
     } else if (username.length > 3) {
       Cookies.set('username', capitalizeFirstLetter(username), { expires: 365 })
     } else {
-      alert("Please enter real Name.");
+      alert("Please enter real Name !!!");
       setUsername();
     }
   } catch (error) {
@@ -143,15 +143,15 @@ function setUsername() {
 
 function setUsernameWithoutCokies() {
 
-  username = prompt("Enter Your Name");
+  username = prompt("Enter Your Name:");
 
   if (username == null) {
-    alert("Please to fill your name");
+    alert("Please to fill your name:");
     setUsername();
   } else if (username.length > 3) {
     // console.log(`Username : ${username}`);
   } else {
-    alert("Please enter real Name.");
+    alert("Please enter real Name !!!");
     setUsername();
   }
 }
