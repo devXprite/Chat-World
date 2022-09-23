@@ -2,7 +2,7 @@
 const firebaseConfig = {
     apiKey: "",
     authDomain: "",
-    databaseURL: "https://chat-app-ae863-default-rtdb.firebaseio.com",
+    databaseURL: "https://advance-chat-app-7629a-default-rtdb.firebaseio.com",
     projectId: "",
     storageBucket: "",
     messagingSenderId: "",
