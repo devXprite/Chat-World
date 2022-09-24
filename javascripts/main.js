@@ -7,7 +7,9 @@ const getCurrentUserName = async () => new Promise((resolve) => {
         return;
     }
 
+    $(".loader").hide();
     $("#inputUsername").show();
+
     $(document).on("submit", "#inputUsername", (e) => {
         e.preventDefault();
         const username = $("#inputUsername input[type=\"text\"]").val();
@@ -36,7 +38,8 @@ const getCurrentCountry = async () => new Promise((resolve) => {
         success(res) {
             const { country } = res;
             resolve(country);
-            localStorage.country = country;
+
+            if (Modernizr.localstorage) localStorage.country = country;
         },
         error: () => {
             resolve("US");
@@ -95,3 +98,13 @@ window.addEventListener("load", async () => {
 });
 
 $(".status-container").on("click", toogleChat);
+
+// $(window).resize(() => {
+//     if ($(window).width() + $(window).height() != _originalSize) {
+//         console.log("keyboard show up");
+//         $(".copyright_link").css("position", "relative");
+//     } else {
+//         console.log("keyboard closed");
+//         $(".copyright_link").css("position", "fixed");
+//     }
+// });

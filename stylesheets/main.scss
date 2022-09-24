@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&display=swap");
 
 $background-color: #181818;
-$primary-color: #eee;
+$primary-color: #cfcfcf;
 $font-family: "Ubuntu", sans-serif;
 $gradient1: linear-gradient(92.7deg, #56d364 -1.37%, #79c0ff 78.71%);
 $gradient2: linear-gradient(141.27deg, #ff904e -4.24%, #ff5982 21.25%, #ec68f4 44.33%, #79e2ff 83.46%);
@@ -129,6 +129,7 @@ header {
     top: 0;
     background: #181818;
     z-index: 10;
+    overflow: scroll;
     h2 {
         font-weight: lighter;
         text-align: center;
