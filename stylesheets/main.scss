@@ -1,0 +1,335 @@
+@use "sass:color";
+@use "normalize";
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&display=swap");
+
+$background-color: #181818;
+$primary-color: #eee;
+$font-family: "Ubuntu", sans-serif;
+$gradient1: linear-gradient(92.7deg, #56d364 -1.37%, #79c0ff 78.71%);
+$gradient2: linear-gradient(141.27deg, #ff904e -4.24%, #ff5982 21.25%, #ec68f4 44.33%, #79e2ff 83.46%);
+$headerHeight: 3.5em;
+$footerHeight: 3em;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin gradientText($gradient: $gradient1) {
+    background: $gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: lighter;
+}
+
+@mixin gradientBorder($border: 1px, $background: #000, $gradient) {
+    position: relative;
+
+    background: $background;
+    background-clip: padding-box;
+    border: solid $border transparent;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        margin: -$border;
+        border-radius: inherit;
+        background: $gradient;
+    }
+}
+
+@mixin box() {
+    width: 80%;
+    padding: 0.2em;
+    margin: 0.4em 0.8em;
+    border-radius: 0.3em;
+    background-color: darken($background-color, 2);
+    background: linear-gradient(140deg, #010101, #141414);
+    box-shadow: #000 2px 2px 4px, inset #3a3a3a 2px 2px 4px;
+    transition: transform 0.5s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+@mixin led($size: "0.25em", $color) {
+    width: $size;
+    height: $size;
+    background-color: $color;
+    border-radius: 50%;
+    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset darken($color, 25) 0 -1px 9px, darken($color, 2) 0 2px 12px;
+}
+
+body {
+    background-color: $background-color;
+    color: $primary-color;
+    font-family: $font-family;
+}
+
+header {
+    height: $headerHeight;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: darken($background-color, 10) 0px 2px 4px;
+    background: darken($background-color, 5);
+
+    .status-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: inherit;
+
+        .led {
+            @include led(0.75em, lime);
+        }
+        .onlineCount {
+            font-size: 0.8em;
+            position: absolute;
+            bottom: 2px;
+        }
+    }
+
+    .logo-container {
+        h1 {
+            text-align: center;
+            margin: 0.3em 0px;
+            font-size: 2em;
+            @include gradientText($gradient2);
+        }
+    }
+
+    .github-href {
+        svg {
+            fill: $primary-color;
+            transition: all 0.3s;
+            &:hover {
+                transform: scale(1.1);
+                fill: dodgerblue;
+            }
+        }
+    }
+}
+
+.welcome {
+    // display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: #181818;
+    z-index: 2;
+    h2 {
+        font-weight: lighter;
+        text-align: center;
+        font-size: 2.3em;
+        margin: 25vh auto;
+        span {
+            @include gradientText($gradient1);
+            font-weight: normal;
+        }
+    }
+
+    form#inputUsername {
+        margin-top: 17em;
+        display: none;
+        input {
+            width: 85%;
+            border-radius: 0.3em;
+            padding: 7px;
+            box-shadow: #000 2px 2px 4px;
+            display: block;
+            font-size: 20px;
+            margin: 0.75em auto;
+            border: 2px solid;
+
+            &[type="text"] {
+                border-color: #666;
+                background-color: #313131;
+                color: #fff;
+                &:focus {
+                    border-color: lime;
+                    outline: none;
+                }
+            }
+
+            &[type="submit"] {
+                background: $gradient1;
+                border-color: #181818;
+                color: #000;
+            }
+        }
+    }
+
+    .loader {
+        margin-top: 15em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // display: none;
+        .wave {
+            width: 4px;
+            height: 5em;
+            background: linear-gradient(45deg, cyan, #fff);
+            margin: 10px;
+            animation: wave 1s linear infinite;
+            border-radius: 20px;
+            transform: scale(0);
+            @for $i from 2 through 10 {
+                &:nth-child(#{$i}) {
+                    animation-delay: $i * 0.1s;
+                }
+            }
+        }
+    }
+}
+
+main {
+    .onlineUsers,
+    form#inputmsg,
+    .chat {
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        overflow-y: scroll;
+    }
+
+    .onlineUsers {
+        left: -100%;
+        height: calc(100vh - ($headerHeight));
+        & > h2 {
+            @include gradientText($gradient1);
+            font-weight: lighter;
+            text-align: center;
+            font-size: 1.8em;
+            margin: 1.5em;
+        }
+
+        .onlineUsers-container {
+            .onlineUser {
+                @include box();
+                margin: 0.7em auto;
+                width: 90%;
+                padding: 0.8em;
+            }
+        }
+    }
+
+    .chat {
+        // display: none;
+        height: calc(100vh - ($headerHeight + $footerHeight));
+
+        .message {
+            @include box();
+
+            &.receive {
+                float: left;
+            }
+
+            &.send {
+                float: right;
+                .username {
+                    @include gradientText($gradient2);
+                }
+            }
+
+            .username {
+                font-size: 0.8em;
+                padding: 0.2em 0 0 0.4em;
+                display: inline-block;
+                @include gradientText();
+            }
+
+            .country {
+                display: inline-block;
+                color: darken($primary-color, 25);
+                font-size: 0.7em;
+            }
+
+            .text {
+                font-size: 1.1em;
+                font-weight: lighter;
+                padding: 0.1em 0 0.2em 0.5em;
+            }
+
+            .time {
+                font-size: 0.7em;
+                text-align: right;
+                color: darken($primary-color, 25);
+                padding: 0 0.8em 0.25em 0;
+            }
+        }
+    }
+
+    form#inputmsg {
+        $minHeight: 2.2em;
+        height: $footerHeight;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
+        min-height: $minHeight;
+        // display: none;
+
+        button,
+        input {
+            height: $footerHeight - 2em;
+            border-radius: 0.3em;
+            min-height: $minHeight;
+        }
+
+        input {
+            flex-basis: 82%;
+            color: $primary-color;
+            border: 2px solid #666;
+            background-color: #313131;
+            font-size: 1.1em;
+            padding-left: 0.4em;
+            &:focus {
+                border-color: chartreuse;
+                outline: none;
+            }
+        }
+
+        button {
+            background: $gradient2;
+            flex-basis: 12%;
+            border: none;
+            img {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        div {
+            h1 {
+                // font-size: 2em;
+            }
+        }
+    }
+}
+
+@keyframes wave {
+    0%,
+    100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
