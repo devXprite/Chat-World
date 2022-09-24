@@ -199,15 +199,17 @@ header {
 main {
     .onlineUsers,
     form#inputmsg,
-    .chat {
+    .chats {
         position: fixed;
         left: 0;
         right: 0;
         width: 100vw;
         overflow-y: scroll;
+        background-color: $background-color;
     }
 
     .onlineUsers {
+        z-index: 2;
         left: -100%;
         height: calc(100vh - ($headerHeight));
         & > h2 {
@@ -228,7 +230,7 @@ main {
         }
     }
 
-    .chat {
+    .chats {
         // display: none;
         height: calc(100vh - ($headerHeight + $footerHeight));
         & > div:last-child {
@@ -286,7 +288,7 @@ main {
         justify-content: space-around;
         flex-direction: row;
         min-height: $minHeight;
-        z-index: 5;
+        z-index: 1;
         // display: none;
 
         button,
@@ -321,7 +323,7 @@ main {
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     header {
         div {
             h1 {
