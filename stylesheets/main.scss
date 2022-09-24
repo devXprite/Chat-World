@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "normalize";
+// @import "compass/css3";
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&display=swap");
 
 $background-color: #181818;
@@ -56,7 +57,43 @@ $footerHeight: 3em;
     transition: transform 0.5s;
 
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
+        box-shadow: #000 2px 2px 6px 2px, inset #3a3a3a 2px 2px 4px;
+    }
+}
+
+@mixin scrollBar($color: #999, $width: 8px, $backgrounds: #000) {
+    &::-webkit-scrollbar {
+        border-radius: 5px;
+        height: 10px;
+        width: $width;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $color;
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: $backgrounds;
+    }
+}
+
+@mixin noScrollBar() {
+    &::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        height: 0;
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+        height: 0;
+        width: 0;
     }
 }
 
@@ -79,8 +116,8 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: darken($background-color, 10) 0px 2px 4px;
     background: darken($background-color, 5);
+    box-shadow: darken($background-color, 10) 0px 2px 4px;
 
     .status-container {
         display: flex;
@@ -130,6 +167,8 @@ header {
     background: #181818;
     z-index: 10;
     overflow: scroll;
+    @include noScrollBar();
+
     h2 {
         font-weight: lighter;
         text-align: center;
@@ -142,9 +181,10 @@ header {
     }
 
     form#inputUsername {
-        margin-top: 17em;
-        margin-bottom: 4em;
+        margin: 17em auto 4em auto;
+        max-width: 45em;
         display: none;
+
         input {
             width: 85%;
             border-radius: 0.3em;
@@ -204,14 +244,16 @@ main {
         left: 0;
         right: 0;
         width: 100vw;
-        overflow-y: scroll;
         background-color: $background-color;
     }
 
     .onlineUsers {
         z-index: 2;
         left: -100%;
+        overflow-y: scroll;
         height: calc(100vh - ($headerHeight));
+        @include scrollBar($gradient1, 0.2em);
+
         & > h2 {
             @include gradientText($gradient1);
             font-weight: lighter;
@@ -232,7 +274,10 @@ main {
 
     .chats {
         // display: none;
+        @include scrollBar($gradient2, 0.2em);
+        overflow-y: scroll;
         height: calc(100vh - ($headerHeight + $footerHeight));
+
         & > div:last-child {
             margin-bottom: 4em;
         }
@@ -323,12 +368,21 @@ main {
     }
 }
 
-@media screen and (max-width: 600px) {
-    header {
-        div {
-            h1 {
-                // font-size: 2em;
-            }
+@media screen and (min-width: 600px) {
+    main {
+        $chatScreenWidth: 75vw;
+
+        .chats,
+        form#inputmsg {
+            width: $chatScreenWidth;
+            left: auto;
+        }
+
+        .onlineUsers {
+            width: calc(100vw - $chatScreenWidth);
+            left: 0;
+            right: 0;
+            border-right: 2px solid #666;
         }
     }
 }
