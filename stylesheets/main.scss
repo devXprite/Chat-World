@@ -104,7 +104,7 @@ header {
         h1 {
             text-align: center;
             margin: 0.3em 0px;
-            font-size: 2em;
+            font-size: 1.8em;
             @include gradientText($gradient2);
         }
     }
@@ -126,13 +126,14 @@ header {
     width: 100vw;
     height: 100vh;
     position: fixed;
+    top: 0;
     background: #181818;
-    z-index: 2;
+    z-index: 10;
     h2 {
         font-weight: lighter;
         text-align: center;
         font-size: 2.3em;
-        margin: 25vh auto;
+        margin: 20vh auto;
         span {
             @include gradientText($gradient1);
             font-weight: normal;
@@ -228,6 +229,9 @@ main {
     .chat {
         // display: none;
         height: calc(100vh - ($headerHeight + $footerHeight));
+        & > div:last-child {
+            margin-bottom: 4em;
+        }
 
         .message {
             @include box();
