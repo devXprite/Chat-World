@@ -143,6 +143,7 @@ header {
 
     form#inputUsername {
         margin-top: 17em;
+        margin-bottom: 4em;
         display: none;
         input {
             width: 85%;
@@ -285,6 +286,7 @@ main {
         justify-content: space-around;
         flex-direction: row;
         min-height: $minHeight;
+        z-index: 5;
         // display: none;
 
         button,
