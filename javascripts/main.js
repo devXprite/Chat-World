@@ -84,11 +84,11 @@ const toogleChat = () => {
     });
 };
 
-const appendMessage = (messagesData) => {
-    try {
-        const name = filterXSS(messagesData.username);
+const appendMessage = (key, messagesData) => {
+    if ($(`#${key}`).length === 1) return;
 
-        console.log(name);
+    try {
+        const name = messagesData.username;
 
         const message = spamFilter(linkifyStr(filterXSS(messagesData.message)));
         const type = window.currentUserName.toLowerCase() === name.toLowerCase() ? "send" : "receive";
@@ -101,23 +101,35 @@ const appendMessage = (messagesData) => {
         const countryEmoji = "x" || countryFlags[messagesData.country].emoji;
 
         $(".chats").append(`
-        <div class="message ${type}">
+        <div class="message ${type}" id="${key}">
             <p class="username">${name} </p>
             <p class="country">from ${countryName} ${countryEmoji} 🇪🇬</p>
             <p class="text">${message}</p>
             <p class="time">${sendingTime}</p>
         </div>
     `);
+
+        window.location.href = `#${key}`;
     } catch (error) {
         console.log(error);
     }
+};
+
+const submitMessage = (message) => {
+    db.ref("messages").push({
+        username: currentUserName,
+        message,
+        country: currentCountry,
+        serverTimestamp: firebase.database.ServerValue.TIMESTAMP,
+    });
 };
 
 // eslint-disable-next-line no-async-promise-executor
 const loadOldChat = async (count = 100) => new Promise(async (resolve) => {
     const data = await db.ref("messages").limitToLast(count).once("value");
     const snapshots = data.val();
-    Object.keys(snapshots).forEach((key) => { appendMessage(snapshots[key]); });
+    if (snapshots) Object.keys(snapshots).forEach((key) => { appendMessage(key, snapshots[key]); });
+
     resolve();
 });
 
@@ -127,6 +139,20 @@ window.addEventListener("load", async () => {
 
     await loadOldChat();
     await hideWelcomeScreen();
+
+    db.ref("messages").limitToLast(1).on("child_added", (data) => {
+        try {
+            appendMessage(data.key, data.val());
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
+    $(document).on("submit", "#msgForm", (e) => {
+        e.preventDefault();
+        submitMessage($("#inputmsg").val());
+        $("#inputmsg").val("");
+    });
 });
 
 if ($(window).width() < 600) $(".status-container").on("click", toogleChat);

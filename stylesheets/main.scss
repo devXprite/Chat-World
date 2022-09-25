@@ -17,6 +17,11 @@ $footerHeight: 3em;
     padding: 0;
 }
 
+html,
+.chats {
+    scroll-behavior: smooth;
+}
+
 @mixin gradientText($gradient: $gradient1) {
     background: $gradient;
     background-clip: text;
@@ -238,7 +243,7 @@ header {
 
 main {
     .onlineUsers,
-    form#inputmsg,
+    form#msgForm,
     .chats {
         position: fixed;
         left: 0;
@@ -324,7 +329,7 @@ main {
         }
     }
 
-    form#inputmsg {
+    form#msgForm {
         $minHeight: 2.2em;
         height: $footerHeight;
         bottom: 0;
@@ -373,7 +378,7 @@ main {
         $chatScreenWidth: 75vw;
 
         .chats,
-        form#inputmsg {
+        form#msgForm {
             width: $chatScreenWidth;
             left: auto;
         }
