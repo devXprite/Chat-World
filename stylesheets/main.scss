@@ -115,10 +115,12 @@ body {
 }
 
 header {
+    position: relative;
     height: $headerHeight;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 10;
     background: darken($background-color, 5);
     box-shadow: darken($background-color, 10) 0px 2px 4px;
 
@@ -237,6 +239,19 @@ header {
             }
         }
     }
+}
+
+.typingStatus {
+    position: fixed;
+    background: darken($background-color, 5);
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+    top: $headerHeight - 1em;
+    padding: 0.2em;
+    font-size: 0.8em;
+    font-style: italic;
+    color: darken(chartreuse, 4);
 }
 
 main {

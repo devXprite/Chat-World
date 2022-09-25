@@ -196,25 +196,63 @@ const checkOnlineUsers = () => {
 
             console.table(usersArr);
             $(".onlineCount").text($(".status.online").length);
-
-            // Object.keys(usersArr).map((key) => {
-            //     let { lastSeen } = usersArr[key];
-            //     const status = lastSeen < 2000000000000 ? "offline" : "online";
-            //     lastSeen = lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm:ss a");
-
-            //     $(".onlineUsers-container").append(`
-            //      <div class="onlineUser">
-            //         <div class="details">
-            //             <p class="name">${key}</p>
-            //             <p class="lastSeen"><b>Last Seen </b><span>${lastSeen}</span></p>
-            //         </div>
-            //         <i class="status ${status}"> </i>
-            //     </div>
-            //     `);
-            // });
-
-            // console.log();
         });
+};
+
+const debounce = (func, wait, immediate) => {
+    let timeout;
+    return function () {
+        const context = this;
+        const args = arguments;
+        const later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
+const ckeckTyping = () => {
+    const typingStatus = db.ref("typingStatus");
+
+    const resetTyping = debounce(() => {
+        typingStatus.update({
+            status: 0,
+            name: currentUserName,
+        });
+    }, 1500);
+
+    const startTyping = () => {
+        typingStatus.update({
+            status: 1,
+            name: currentUserName,
+        });
+        resetTyping();
+    };
+
+    typingStatus.on("value", (snapshot) => {
+        const { status, name } = snapshot.val();
+        if (status > 0) {
+            console.log(`${name} Typing....`);
+            $(".typingStatus p").html(`${name} is typing...`);
+            gsap.to(".typingStatus", {
+                top: "4.5em",
+                ease: "elastic",
+                duration: 0.5,
+            });
+        } else {
+            gsap.to(".typingStatus", {
+                top: "3em",
+                ease: "elastic",
+                duration: 0.5,
+            });
+        }
+    });
+
+    $("#inputmsg").keyup(startTyping);
 };
 
 window.addEventListener("load", async () => {
@@ -227,6 +265,7 @@ window.addEventListener("load", async () => {
     checkNewMsg();
     checkFormSubmit();
     checkOnlineUsers();
+    ckeckTyping();
 });
 
 if ($(window).width() < 600) $(".status-container").on("click", toogleChat);
