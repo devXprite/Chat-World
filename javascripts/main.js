@@ -53,12 +53,12 @@ const getCurrentCountry = async () => new Promise((resolve) => {
 
 const hideWelcomeScreen = () => new Promise((resolve) => {
     const timeLine = gsap.timeline();
-    timeLine.to(".welcome", {
+    timeLine.to(".welcomePage", {
         left: "100%",
         duration: 1.5,
         ease: "bounce",
     });
-    timeLine.to(".welcome", {
+    timeLine.to(".welcomePage", {
         display: "none",
         onComplete: resolve,
     });
@@ -70,15 +70,15 @@ const toogleChat = () => {
         ease: "bounce",
     };
 
-    if (gsap.getProperty(".onlineUsers", "left") !== 0) {
-        gsap.to(".onlineUsers", {
+    if (gsap.getProperty(".onlineUsersPage", "left") !== 0) {
+        gsap.to(".onlineUsersPage", {
             left: "0%",
             ...opts,
         });
 
         return;
     }
-    gsap.to(".onlineUsers", {
+    gsap.to(".onlineUsersPage", {
         left: "-100%",
         ...opts,
     });
@@ -169,28 +169,51 @@ const checkOnlineUsers = () => {
         .limitToLast(50)
         .orderByChild("lastSeen")
         .on("value", (snapshot) => {
-            const usersObj = snapshot.val();
-
             $(".onlineUsers-container").html("");
-            $(".onlineCount").text(Object.keys(usersObj).length);
 
-            Object.keys(usersObj).map((key) => {
-                let { lastSeen } = usersObj[key];
-                const status = lastSeen < 2000000000000 ? "offline" : "online";
-                lastSeen = lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm:ss a");
+            const userObj = snapshot.val();
 
+            let usersArr = Object.keys(userObj).map((key) => ({
+                key,
+                status: userObj[key].status,
+                lastSeen: userObj[key].lastSeen === 2000000000000 ? "Online" : moment(userObj[key].lastSeen).format("Do MMMM YYYY, h:mm:ss a"),
+            }));
+
+            usersArr = _.orderBy(usersArr, ["lastSeen"], ["desc"]);
+
+            usersArr.map((user) => {
+                const { key, lastSeen, status } = user;
                 $(".onlineUsers-container").append(`
-                 <div class="onlineUser">
-                    <div class="details">
-                        <p class="name">${key}</p>
-                        <p class="lastSeen"><b>Last Seen </b><span>${lastSeen}</span></p>
-                    </div>
-                    <i class="status ${status}"> </i>
-                </div>
-                `);
+                <div class="onlineUser">
+                   <div class="details">
+                       <p class="name">${key}</p>
+                       <p class="lastSeen"><b>Last Seen </b><span>${lastSeen}</span></p>
+                   </div>
+                   <i class="status ${status}"> </i>
+               </div>
+               `);
             });
 
-            console.table(snapshot.val());
+            console.table(usersArr);
+            $(".onlineCount").text($(".status.online").length);
+
+            // Object.keys(usersArr).map((key) => {
+            //     let { lastSeen } = usersArr[key];
+            //     const status = lastSeen < 2000000000000 ? "offline" : "online";
+            //     lastSeen = lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm:ss a");
+
+            //     $(".onlineUsers-container").append(`
+            //      <div class="onlineUser">
+            //         <div class="details">
+            //             <p class="name">${key}</p>
+            //             <p class="lastSeen"><b>Last Seen </b><span>${lastSeen}</span></p>
+            //         </div>
+            //         <i class="status ${status}"> </i>
+            //     </div>
+            //     `);
+            // });
+
+            // console.log();
         });
 };
 
