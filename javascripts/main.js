@@ -95,7 +95,7 @@ const appendMessage = (key, messagesData) => {
 
         const timestamp = messagesData.serverTimestamp;
         const sendingTime = moment(timestamp).format(
-            "MMMM Do YYYY, h:mm:ss a",
+            "DD MMMM YYYY, h:mm:ss a",
         );
         const countryName = "IN" || countryFlags[messagesData.country].name;
         const countryEmoji = "x" || countryFlags[messagesData.country].emoji;
@@ -124,6 +124,24 @@ const submitMessage = (message) => {
     });
 };
 
+const checkNewMsg = () => {
+    db.ref("messages").limitToLast(1).on("child_added", (data) => {
+        try {
+            appendMessage(data.key, data.val());
+        } catch (error) {
+            console.log(error);
+        }
+    });
+};
+
+const checkFormSubmit = () => {
+    $(document).on("submit", "#msgForm", (e) => {
+        e.preventDefault();
+        submitMessage($("#inputmsg").val());
+        $("#inputmsg").val("");
+    });
+};
+
 // eslint-disable-next-line no-async-promise-executor
 const loadOldChat = async (count = 100) => new Promise(async (resolve) => {
     const data = await db.ref("messages").limitToLast(count).once("value");
@@ -133,6 +151,49 @@ const loadOldChat = async (count = 100) => new Promise(async (resolve) => {
     resolve();
 });
 
+const checkOnlineUsers = () => {
+    const onlineUsers = db.ref("onlineUsers/");
+    const currentOnlineUser = db.ref(`onlineUsers/${currentUserName}`);
+
+    currentOnlineUser.set({
+        status: "online",
+        lastSeen: 2000000000000,
+    });
+
+    currentOnlineUser.onDisconnect().set({
+        status: "offline",
+        lastSeen: firebase.database.ServerValue.TIMESTAMP,
+    });
+
+    onlineUsers
+        .limitToLast(50)
+        .orderByChild("lastSeen")
+        .on("value", (snapshot) => {
+            const usersObj = snapshot.val();
+
+            $("#onlineUsers-container").html("");
+            $(".onlineCount").text(Object.keys(usersObj).length);
+
+            Object.keys(usersObj).map((key) => {
+                let { lastSeen } = usersObj[key];
+                const status = lastSeen < 2000000000000 ? "offline" : "online";
+                lastSeen = lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm:ss a");
+
+                $(".onlineUsers-container").append(`
+                 <div class="onlineUser">
+                    <div class="details">
+                        <p class="name">${key}</p>
+                        <p class="lastSeen"><b>Last Seen </b><span>${lastSeen}</span></p>
+                    </div>
+                    <i class="status ${status}"> </i>
+                </div>
+                `);
+            });
+
+            console.table(snapshot.val());
+        });
+};
+
 window.addEventListener("load", async () => {
     window.currentUserName = await getCurrentUserName();
     window.currentCountry = await getCurrentCountry();
@@ -140,19 +201,9 @@ window.addEventListener("load", async () => {
     await loadOldChat();
     await hideWelcomeScreen();
 
-    db.ref("messages").limitToLast(1).on("child_added", (data) => {
-        try {
-            appendMessage(data.key, data.val());
-        } catch (error) {
-            console.log(error);
-        }
-    });
-
-    $(document).on("submit", "#msgForm", (e) => {
-        e.preventDefault();
-        submitMessage($("#inputmsg").val());
-        $("#inputmsg").val("");
-    });
+    checkNewMsg();
+    checkFormSubmit();
+    checkOnlineUsers();
 });
 
 if ($(window).width() < 600) $(".status-container").on("click", toogleChat);

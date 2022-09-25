@@ -52,8 +52,6 @@ html,
 }
 
 @mixin box() {
-    width: 80%;
-    padding: 0.2em;
     margin: 0.4em 0.8em;
     border-radius: 0.3em;
     background-color: darken($background-color, 2);
@@ -270,9 +268,31 @@ main {
         .onlineUsers-container {
             .onlineUser {
                 @include box();
-                margin: 0.7em auto;
                 width: 90%;
                 padding: 0.8em;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+
+                .details {
+                    .name {
+                        font-size: 1.1em;
+                        margin-bottom: 0.15em;
+                    }
+                    .lastSeen {
+                        font-size: 0.75em;
+                        color: darken($primary-color, 20);
+                    }
+                }
+                .status {
+                    &.online {
+                        @include led(12px, lime);
+                    }
+                    &.offline {
+                        @include led(12px, red);
+                    }
+                }
             }
         }
     }
@@ -289,6 +309,8 @@ main {
 
         .message {
             @include box();
+            width: 80%;
+            padding: 0.2em;
 
             &.receive {
                 float: left;
@@ -315,13 +337,13 @@ main {
             }
 
             .text {
-                font-size: 1.1em;
+                font-size: 1em;
                 font-weight: lighter;
                 padding: 0.1em 0 0.2em 0.5em;
             }
 
             .time {
-                font-size: 0.7em;
+                font-size: 0.6em;
                 text-align: right;
                 color: darken($primary-color, 25);
                 padding: 0 0.8em 0.25em 0;
