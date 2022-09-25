@@ -171,7 +171,7 @@ const checkOnlineUsers = () => {
         .on("value", (snapshot) => {
             const usersObj = snapshot.val();
 
-            $("#onlineUsers-container").html("");
+            $(".onlineUsers-container").html("");
             $(".onlineCount").text(Object.keys(usersObj).length);
 
             Object.keys(usersObj).map((key) => {
