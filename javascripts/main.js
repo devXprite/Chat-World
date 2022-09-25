@@ -97,8 +97,8 @@ const appendMessage = (key, messagesData) => {
         const sendingTime = moment(timestamp).format(
             "DD MMMM YYYY, h:mm:ss a",
         );
-        const countryName = "IN" || countryFlags[messagesData.country].name;
-        const countryEmoji = "x" || countryFlags[messagesData.country].emoji;
+        const countryName = countryFlags[messagesData.country].name;
+        const countryEmoji = countryFlags[messagesData.country].emoji;
 
         $(".chats").append(`
         <div class="message ${type}" id="${key}">

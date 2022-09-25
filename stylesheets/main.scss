@@ -302,6 +302,7 @@ main {
                     .lastSeen {
                         font-size: 0.75em;
                         color: darken($primary-color, 20);
+                        font-style: italic;
                     }
                 }
                 .status {
@@ -364,6 +365,7 @@ main {
             .time {
                 font-size: 0.6em;
                 text-align: right;
+                font-style: italic;
                 color: darken($primary-color, 25);
                 padding: 0 0.8em 0.25em 0;
             }
