@@ -1,13 +1,13 @@
 @use "sass:color";
 @use "normalize";
-// @import "compass/css3";
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&display=swap");
 
 $background-color: #181818;
 $primary-color: #cfcfcf;
 $font-family: "Ubuntu", sans-serif;
 $gradient1: linear-gradient(92.7deg, #56d364 -1.37%, #79c0ff 78.71%);
 $gradient2: linear-gradient(141.27deg, #ff904e -4.24%, #ff5982 21.25%, #ec68f4 44.33%, #79e2ff 83.46%);
+$gradient3: red;
 $headerHeight: 3.5em;
 $footerHeight: 3em;
 
@@ -53,15 +53,15 @@ html,
 
 @mixin box() {
     margin: 0.4em 0.8em;
-    border-radius: 0.3em;
+    border-radius: 0.25em;
     background-color: darken($background-color, 2);
     background: linear-gradient(140deg, #010101, #141414);
-    box-shadow: #000 2px 2px 4px, inset #3a3a3a 2px 2px 4px;
+    box-shadow: #000 2px 2px 2px, inset #3a3a3a 2px 2px 2px;
     transition: transform 0.5s;
 
     &:hover {
         transform: scale(1.02);
-        box-shadow: #000 2px 2px 6px 2px, inset #3a3a3a 2px 2px 4px;
+        box-shadow: #000 2px 2px 4px, inset #3a3a3a 2px 2px 2px;
     }
 }
 
@@ -136,6 +136,8 @@ header {
             @include led(0.75em, lime);
         }
         .onlineCount {
+            font-family: "Electrolize", sans-serif;
+            color: lime;
             font-size: 0.8em;
             position: absolute;
             bottom: 2px;
@@ -205,8 +207,13 @@ header {
                 background-color: #313131;
                 color: #fff;
                 &:focus {
-                    border-color: lime;
                     outline: none;
+                    &:invalid {
+                        border-color: orangered;
+                    }
+                    &:valid {
+                        border-color: lime;
+                    }
                 }
             }
 
@@ -252,6 +259,16 @@ header {
     font-size: 0.8em;
     font-style: italic;
     color: darken(chartreuse, 4);
+    animation: blink 0.5s infinite alternate linear;
+
+    @keyframes blink {
+        from {
+            color: darken(chartreuse, 4);
+        }
+        to {
+            color: darken(chartreuse, 20);
+        }
+    }
 }
 
 main {
@@ -284,6 +301,7 @@ main {
             .onlineUser {
                 @include box();
                 width: 90%;
+                margin: 0.6em 0.8em;
                 padding: 0.8em;
                 display: flex;
                 justify-content: space-between;
@@ -368,6 +386,7 @@ main {
                 font-style: italic;
                 color: darken($primary-color, 25);
                 padding: 0 0.8em 0.25em 0;
+                font-family: "Electrolize", sans-serif;
             }
         }
     }
@@ -399,8 +418,13 @@ main {
             font-size: 1.1em;
             padding-left: 0.4em;
             &:focus {
-                border-color: chartreuse;
                 outline: none;
+                &:invalid {
+                    border-color: orangered;
+                }
+                &:valid {
+                    border-color: chartreuse;
+                }
             }
         }
 

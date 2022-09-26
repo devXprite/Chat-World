@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/no-array-for-each */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
-// initialize database
 const db = firebase.database();
 
 const getCurrentUserName = async () => new Promise((resolve) => {
@@ -179,10 +178,13 @@ const checkOnlineUsers = () => {
                 lastSeen: userObj[key].lastSeen === 2000000000000 ? "Online" : moment(userObj[key].lastSeen).format("Do MMMM YYYY, h:mm:ss a"),
             }));
 
+            const onlineUsersCount = usersArr.filter((user) => user.status === "online").length;
+
             usersArr = _.orderBy(usersArr, ["lastSeen"], ["desc"]);
 
             usersArr.map((user) => {
                 const { key, lastSeen, status } = user;
+
                 $(".onlineUsers-container").append(`
                 <div class="onlineUser">
                    <div class="details">
@@ -195,17 +197,20 @@ const checkOnlineUsers = () => {
             });
 
             console.table(usersArr);
-            $(".onlineCount").text($(".status.online").length);
+
+            $(".onlineCount").text(onlineUsersCount <= 9 ? `0${onlineUsersCount}` : onlineUsersCount);
         });
 };
 
 const debounce = (func, wait, immediate) => {
     let timeout;
     return function () {
+        // eslint-disable-next-line unicorn/no-this-assignment
         const context = this;
+        // eslint-disable-next-line prefer-rest-params
         const args = arguments;
-        const later = function () {
-            timeout = null;
+        const later = () => {
+            timeout = undefined;
             if (!immediate) func.apply(context, args);
         };
         const callNow = immediate && !timeout;
@@ -237,7 +242,7 @@ const ckeckTyping = () => {
         const { status, name } = snapshot.val();
         if (status > 0) {
             console.log(`${name} Typing....`);
-            $(".typingStatus p").html(`${name} is typing...`);
+            $(".typingStatus p").text(`${name} is typing...`);
             gsap.to(".typingStatus", {
                 top: "4.5em",
                 ease: "elastic",

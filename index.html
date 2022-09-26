@@ -55,7 +55,7 @@
     <section class="welcomePage">
         <h2>Welcome to <br> <span>World ChatApp</span></h2>
         <form action="" method="get" id="inputUsername">
-            <input type="text" name="username" required>
+            <input type="text" name="username" pattern="[A-Za-z0-9_- ]{3,30}" autocomplete="username" required>
             <input type="submit" value="Submit">
         </form>
         <div class="loader">
@@ -83,120 +83,31 @@
         </div>
         <div class="chats"> </div>
         <form id="msgForm">
-            <input type="text" id="inputmsg">
+            <input type="text" id="inputmsg" placeholder="write your message here..." minlength="2" maxlength="255"
+                autocomplete="off" required>
             <button type="submit">
                 <img src="./images/paper-plane.png" alt="" srcset="">
             </button>
         </form>
     </main>
-    <!-- <main>
-        <section id="info">
-            <h2>About</h2>
-            <p>
-                This is a simple Realtime Chat app using Firebase. Here you can chat
-                with anyone without Login or SignUP. It helps you to meet new people
-                and make new friends.
-            </p>
-            <br />
-            <p>
-                View Source or contribute to this project on
-                <a href="https://github.com/7ORP3DO/realtime-chat-app">GitHub</a>.
-            </p>
-            <br /><br />
-
-            <p class="details">
-                <b>Your Name : </b> <span id="your-name"> --</span> &nbsp;
-                <i class="fa fa-sign-out" aria-hidden="true" onclick="signOut()"></i>
-            </p>
-            <p class="details">
-                <b>Your country : </b> <span id="your-country"> --</span>
-            </p>
-            <p class="details">
-                <b>Total Messages : </b> <span id="ttl-msg"> 00</span>
-            </p>
-            <p class="details">
-                <b>Total Views : </b> <span id="ttl-view"> 00</span>
-            </p>
-            <p class="details">
-                <b>Current Time : </b> <span id="crt-time"> 00:00:00</span>
-            </p>
-            <br /><br />
-
-            <p class="details">
-                <b>Cookies : </b> <span id="check-cookies"> --</span>
-            </p>
-            <p class="details"><b>Emoji : </b> <span id="check-emoji"> --</span></p>
-            <p class="details">
-                <b>Unicode : </b> <span id="check-unicode"> --</span>
-            </p>
-            <p class="details"><b>Audio : </b> <span id="check-audio"> --</span></p>
-
-            <button onclick="window.location.href = 'https://github.com/7ORP3DO/realtime-chat-app'">
-                View Source
-            </button>
-        </section>
-
-        <section id="onlineUsers">
-            <h2>Online Users</h2>
-
-            <div class="onlineUser">
-                <p class="onlineUserName">Prateek Singh</p>
-                <span class="status online"></span>
-            </div>
-
-            <div class="onlineUser">
-                <p class="onlineUserName">Prateek Singh</p>
-                <span class="status offline"></span>
-                <p class="lastSeen"> <b>Last Seen</b> March 13th 2022, 3:23:57 pm</p>
-            </div>
-        </section>
-
-        <section id="chat">
-    <div class="message-container">
-        <p class="loader">Loading Messages...</p>
-        <p class="pleaseWait">
-            Please wait for <span class="timeLeft">15</span> seconds
-        </p>
-
-        <div class="message">
-            <p class="username">Prateek</p>
-            <p class="text">Hello World</p>
-            <p class="time">1 day ago</p>
-        </div>
-        <div class="typing">
-            <p></p>
-        </div>
-    </div>
-
-    <form id="message-form">
-        <textarea id="message-input" type="text" maxlength="255" minlength="3" rows="1" required></textarea>
-        <button id="message-btn" type="submit">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-        </button>
-    </form>
-    </section>
-    </main> -->
 
     <!-- scripts -->
-    <script src="./javascripts/firebase-app.js"></script>
-    <script src="./javascripts/lodash.min.js"></script>
-    <script src="./javascripts/firebase-database.js"></script>
-    <script src="./firebaseConfig.js"></script>
+
+    <script src="./javascripts/firebase-app.min.js"></script>
+    <script src="./javascripts/firebase-database.min.js"></script>
     <script src="./javascripts/jquery.min.js"></script>
-    <script src="./javascripts/scrollTo.min.js"></script>
+    <script src="./javascripts/lodash.min.js"></script>
     <script src="./javascripts/gsap.min.js"></script>
-    <script src="./javascripts/ScrollTrigger.min.js"></script>
     <script src="./javascripts/spamFilter.js"></script>
     <script src="./javascripts/linkify.min.js"></script>
     <script src="./javascripts/linkify-string.min.js"></script>
-    <script src="./javascripts/js.cookie.min.js"></script>
-    <script src="./javascripts/moment.min.js"></script>
-    <script src="./javascripts/countlyFlags.js"></script>
     <script src="./javascripts/modernizr.min.js"></script>
-    <script src="./javascripts/typed.min.js"></script>
+    <script src="./javascripts/moment.min.js"></script>
     <script src="./javascripts/moment-timezone-with-data.min.js"></script>
     <script src="./javascripts/xss.min.js"></script>
     <script src="./javascripts/swipe-listener.min.js"></script>
+    <script src="./javascripts/countlyFlags.min.js"></script>
+    <script src="./firebaseConfig.js"></script>
     <script src="./javascripts/main.js"></script>
 
 </body>
