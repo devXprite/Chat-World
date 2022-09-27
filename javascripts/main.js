@@ -165,8 +165,8 @@ const checkOnlineUsers = () => {
     });
 
     onlineUsers
-        .limitToLast(50)
         .orderByChild("lastSeen")
+        .limitToLast(30)
         .on("value", (snapshot) => {
             $(".onlineUsers-container").html("");
 
@@ -189,7 +189,7 @@ const checkOnlineUsers = () => {
                 <div class="onlineUser">
                    <div class="details">
                        <p class="name">${key}</p>
-                       <p class="lastSeen"><b>Last Seen </b><span>${lastSeen}</span></p>
+                       <p class="lastSeen"><b>Last Seen: </b><span>${lastSeen}</span></p>
                    </div>
                    <i class="status ${status}"> </i>
                </div>

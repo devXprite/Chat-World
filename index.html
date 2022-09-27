@@ -52,6 +52,10 @@
         </div>
     </header>
 
+    <div class="typingStatus">
+        <p></p>
+    </div>
+
     <section class="welcomePage">
         <h2>Welcome to <br> <span>World ChatApp</span></h2>
         <form action="" method="get" id="inputUsername">
@@ -73,15 +77,24 @@
     </section>
 
     <main>
-        <div class="typingStatus">
-            <p></p>
-        </div>
+
         <div class="onlineUsersPage">
             <h2>Online Users</h2>
             <div class="onlineUsers-container">
             </div>
         </div>
+
         <div class="chats"> </div>
+        <div class="settingsPage">
+            <h2>About</h2>
+            <p>This is a simple Realtime Chat app using Firebase. Here you can chat with anyone without Login or SignUP.
+                It helps you to meet new people and make new friends. <br>View Source or contribute to this project on
+                GitHub. </p>
+            <button class="sound">Turn Off Sound</button>
+            <button class="scroll">Turn Off Auto Scroll</button>
+            <button class="logout">LogOut</button><br>
+            <button class="viewSource">View Source</button>
+        </div>
         <form id="msgForm">
             <input type="text" id="inputmsg" placeholder="write your message here..." minlength="2" maxlength="255"
                 autocomplete="off" required>

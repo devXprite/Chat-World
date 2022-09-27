@@ -7,7 +7,7 @@ $primary-color: #cfcfcf;
 $font-family: "Ubuntu", sans-serif;
 $gradient1: linear-gradient(92.7deg, #56d364 -1.37%, #79c0ff 78.71%);
 $gradient2: linear-gradient(141.27deg, #ff904e -4.24%, #ff5982 21.25%, #ec68f4 44.33%, #79e2ff 83.46%);
-$gradient3: red;
+$gradient3: linear-gradient(130deg, #027bfd -24.67%, #9f51fb 53.55%);
 $headerHeight: 3.5em;
 $footerHeight: 3em;
 
@@ -274,6 +274,7 @@ header {
 main {
     .onlineUsersPage,
     form#msgForm,
+    .settingsPage,
     .chats {
         position: fixed;
         left: 0;
@@ -335,6 +336,60 @@ main {
         }
     }
 
+    .settingsPage {
+        z-index: 3;
+        left: 100%;
+        background-color: $background-color;
+        height: calc(100vh - ($headerHeight));
+
+        h2 {
+            @include gradientText($gradient3);
+            text-align: center;
+            font-size: 2em;
+            margin: 1.5em auto 1em auto;
+        }
+
+        p {
+            width: 90%;
+            margin: auto auto 2em auto;
+            text-align: justify;
+            font-size: 1.1em;
+        }
+
+        button {
+            width: 90%;
+            display: block;
+            padding: 0.4em;
+            font-size: 1em;
+            margin: 0.5em auto;
+            border-radius: 0.25em;
+            transition: transform 0.3s;
+            border: 1px solid transparent;
+            box-shadow: #000 2px 2px 4px;
+
+            &:hover {
+                transform: scale(0.95);
+            }
+
+            &:active {
+                transform: scale(0.8);
+            }
+
+            &.scroll,
+            &.sound {
+                background: darken(#fff, 20);
+            }
+
+            &.logout {
+                background-color: orangered;
+            }
+
+            &.viewSource {
+                background: $gradient1;
+            }
+        }
+    }
+
     .chats {
         // display: none;
         @include scrollBar($gradient2, 0.2em);
@@ -378,6 +433,11 @@ main {
                 font-size: 1em;
                 font-weight: lighter;
                 padding: 0.1em 0 0.2em 0.5em;
+                a {
+                    color: dodgerblue;
+                    text-decoration: none;
+                    font-style: italic;
+                }
             }
 
             .time {
@@ -442,19 +502,22 @@ main {
 
 @media screen and (min-width: 600px) {
     main {
-        $chatScreenWidth: 75vw;
+        $chatScreenWidth: 60vw;
+        $sidePagesWidth: calc((100vw - $chatScreenWidth) / 2);
 
         .chats,
         form#msgForm {
             width: $chatScreenWidth;
-            left: auto;
+            left: $sidePagesWidth;
         }
 
         .onlineUsersPage {
-            width: calc(100vw - $chatScreenWidth);
+            width: $sidePagesWidth;
             left: 0;
-            right: 0;
-            border-right: 2px solid #666;
+        }
+        .settingsPage {
+            width: $sidePagesWidth;
+            left: $chatScreenWidth + $sidePagesWidth;
         }
     }
 }
