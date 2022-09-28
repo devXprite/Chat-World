@@ -153,13 +153,21 @@ header {
         }
     }
 
-    .github-href {
-        svg {
-            fill: $primary-color;
-            transition: all 0.3s;
+    .settingIcon {
+        img {
+            width: 2em;
+            animation: rotate 2s infinite linear paused forwards;
+
             &:hover {
-                transform: scale(1.1);
-                fill: dodgerblue;
+                animation-play-state: running;
+            }
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
             }
         }
     }
@@ -353,7 +361,7 @@ main {
             width: 90%;
             margin: auto auto 2em auto;
             text-align: justify;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         button {
@@ -392,7 +400,7 @@ main {
 
     .chats {
         // display: none;
-        @include scrollBar($gradient2, 0.2em);
+        @include scrollBar($gradient3, 0.2em);
         overflow-y: scroll;
         height: calc(100vh - ($headerHeight + $footerHeight));
 

@@ -63,11 +63,18 @@ const hideWelcomeScreen = () => new Promise((resolve) => {
     });
 });
 
-const toogleChat = () => {
+const toogleOnlineUsersPage = () => {
     const opts = {
         duration: 1.5,
         ease: "bounce",
     };
+
+    if (gsap.getProperty(".settingsPage", "left") === 0) {
+        gsap.to(".settingsPage", {
+            left: "100%",
+            ...opts,
+        });
+    }
 
     if (gsap.getProperty(".onlineUsersPage", "left") !== 0) {
         gsap.to(".onlineUsersPage", {
@@ -77,8 +84,59 @@ const toogleChat = () => {
 
         return;
     }
+
+    if ($(window).width() > 600) {
+        gsap.to(".onlineUsersPage", {
+            left: "-20%",
+            ...opts,
+        });
+        return;
+    }
+
     gsap.to(".onlineUsersPage", {
         left: "-100%",
+        ...opts,
+    });
+};
+
+const toogleSettingPage = () => {
+    const opts = {
+        duration: 1.5,
+        ease: "bounce",
+    };
+
+    if ($(window).width() > 600) {
+        if (gsap.getProperty(".settingsPage", "left") !== 100) {
+            gsap.to(".settingsPage", {
+                left: "100%",
+                ...opts,
+            });
+        } else {
+            gsap.to(".settingsPage", {
+                left: "80%",
+                ...opts,
+            });
+        }
+        return;
+    }
+
+    if (gsap.getProperty(".onlineUsersPage", "left") === 0) {
+        gsap.to(".onlineUsersPage", {
+            left: "-100%",
+            ...opts,
+        });
+    }
+
+    if (gsap.getProperty(".settingsPage", "left") !== 0) {
+        gsap.to(".settingsPage", {
+            left: "0%",
+            ...opts,
+        });
+
+        return;
+    }
+    gsap.to(".settingsPage", {
+        left: "100%",
         ...opts,
     });
 };
@@ -90,7 +148,7 @@ const appendMessage = (key, messagesData) => {
         const name = messagesData.username;
 
         const message = spamFilter(linkifyStr(filterXSS(messagesData.message)));
-        const type = window.currentUserName.toLowerCase() === name.toLowerCase() ? "send" : "receive";
+        const type = window.currentUserName === name ? "send" : "receive";
 
         const timestamp = messagesData.serverTimestamp;
         const sendingTime = moment(timestamp).format(
@@ -102,13 +160,13 @@ const appendMessage = (key, messagesData) => {
         $(".chats").append(`
         <div class="message ${type}" id="${key}">
             <p class="username">${name} </p>
-            <p class="country">from ${countryName} ${countryEmoji} 🇪🇬</p>
+            <p class="country">from ${countryName} ${countryEmoji}</p>
             <p class="text">${message}</p>
             <p class="time">${sendingTime}</p>
         </div>
     `);
 
-        window.location.href = `#${key}`;
+        if (autoScroll) window.location.href = `#${key}`;
     } catch (error) {
         console.log(error);
     }
@@ -260,9 +318,38 @@ const ckeckTyping = () => {
     $("#inputmsg").keyup(startTyping);
 };
 
+const toogleSound = () => {
+    if (window.sound) {
+        $("button.sound").text("Turn On Sound");
+        window.sound = false;
+        return;
+    }
+
+    window.sound = true;
+    $("button.sound").text("Turn Off Sound");
+};
+
+const toogleScroll = () => {
+    if (window.autoScroll) {
+        $("button.scroll").text("Turn On AutoScroll");
+        window.autoScroll = false;
+        return;
+    }
+
+    window.autoScroll = true;
+    $("button.scroll").text("Turn Off AutoScroll");
+};
+
+const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+};
+
 window.addEventListener("load", async () => {
     window.currentUserName = await getCurrentUserName();
     window.currentCountry = await getCurrentCountry();
+    window.sound = true;
+    window.autoScroll = true;
 
     await loadOldChat();
     await hideWelcomeScreen();
@@ -271,6 +358,10 @@ window.addEventListener("load", async () => {
     checkFormSubmit();
     checkOnlineUsers();
     ckeckTyping();
-});
 
-if ($(window).width() < 600) $(".status-container").on("click", toogleChat);
+    $(".status-container").on("click", toogleOnlineUsersPage);
+    $(".settingIcon").on("click", toogleSettingPage);
+    $("button.sound").on("click", toogleSound);
+    $("button.scroll").on("click", toogleScroll);
+    $("button.logout").on("click", logOut);
+});
