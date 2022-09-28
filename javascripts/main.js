@@ -2,6 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
 const db = firebase.database();
+const popUp = new Audio("../sound/popUp.mp3");
 
 const getCurrentUserName = async () => new Promise((resolve) => {
     if (Modernizr.localstorage && localStorage.username) {
@@ -167,6 +168,7 @@ const appendMessage = (key, messagesData) => {
     `);
 
         if (autoScroll) window.location.href = `#${key}`;
+        if (sound) popUp.play();
     } catch (error) {
         console.log(error);
     }
@@ -286,7 +288,7 @@ const ckeckTyping = () => {
             status: 0,
             name: currentUserName,
         });
-    }, 1500);
+    }, 1000);
 
     const startTyping = () => {
         typingStatus.update({
