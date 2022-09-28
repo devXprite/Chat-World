@@ -371,6 +371,11 @@ main {
             margin: auto auto 2em auto;
             text-align: justify;
             font-size: 1em;
+
+            a {
+                color: dodgerblue;
+                text-decoration: none;
+            }
         }
 
         button {
@@ -450,6 +455,8 @@ main {
                 font-size: 1em;
                 font-weight: lighter;
                 padding: 0.1em 0 0.2em 0.5em;
+                word-break: break-word;
+
                 a {
                     color: dodgerblue;
                     text-decoration: none;
@@ -521,6 +528,12 @@ main {
     main {
         $chatScreenWidth: 60vw;
         $sidePagesWidth: calc((100vw - $chatScreenWidth) / 2);
+
+        .chats {
+            .message {
+                width: 60%;
+            }
+        }
 
         .chats,
         form#msgForm {

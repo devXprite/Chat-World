@@ -146,14 +146,14 @@ const appendMessage = (key, messagesData) => {
     if ($(`#${key}`).length === 1) return;
 
     try {
-        const name = messagesData.username;
+        const name = filterXSS(messagesData.username);
 
         const message = spamFilter(linkifyStr(filterXSS(messagesData.message)));
         const type = window.currentUserName === name ? "send" : "receive";
 
         const timestamp = messagesData.serverTimestamp;
         const sendingTime = moment(timestamp).format(
-            "DD MMMM YYYY, h:mm:ss a",
+            "DD MMMM YYYY, h:mm a",
         );
         const countryName = countryFlags[messagesData.country].name;
         const countryEmoji = countryFlags[messagesData.country].emoji;
@@ -202,7 +202,7 @@ const formSubmitListener = () => {
 };
 
 // eslint-disable-next-line no-async-promise-executor
-const loadOldChat = async (count = 100) => new Promise(async (resolve) => {
+const loadOldChat = async (count = 120) => new Promise(async (resolve) => {
     const data = await db.ref("messages").limitToLast(count).once("value");
     const snapshots = data.val();
     if (snapshots) Object.keys(snapshots).forEach((key) => { appendMessage(key, snapshots[key]); });
@@ -233,18 +233,18 @@ const onlineUsersListener = () => {
     const currentOnlineUser = db.ref(`onlineUsers/${currentUserName}`);
 
     currentOnlineUser.set({
-        status: "online",
+        isOnline: true,
         lastSeen: 2000000000000,
     });
 
     currentOnlineUser.onDisconnect().set({
-        status: "offline",
+        isOnline:false,
         lastSeen: firebase.database.ServerValue.TIMESTAMP,
     });
 
     onlineUsers
         .orderByChild("lastSeen")
-        .limitToLast(30)
+        .limitToLast(40)
         .on("value", (snapshot) => {
             $(".onlineUsers-container").html("");
 
@@ -252,8 +252,8 @@ const onlineUsersListener = () => {
 
             let usersArr = Object.keys(userObj).map((key) => ({
                 key,
-                status: userObj[key].status,
-                lastSeen: userObj[key].lastSeen === 2000000000000 ? "Online" : moment(userObj[key].lastSeen).format("Do MMMM YYYY, h:mm:ss a"),
+                status: userObj[key].isOnline ? "online" : "offline",
+                lastSeen: userObj[key].lastSeen ,
             }));
 
             const onlineUsersCount = usersArr.filter((user) => user.status === "online").length;
@@ -266,15 +266,13 @@ const onlineUsersListener = () => {
                 $(".onlineUsers-container").append(`
                 <div class="onlineUser">
                    <div class="details">
-                       <p class="name">${key}</p>
-                       <p class="lastSeen"><b>Last Seen: </b><span>${lastSeen}</span></p>
+                       <p class="name">${filterXSS(key)}</p>
+                       <p class="lastSeen"><b>Last Seen: </b><span>${lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm a")}</span></p>
                    </div>
                    <i class="status ${status}"> </i>
                </div>
                `);
             });
-
-            console.table(usersArr);
 
             $(".onlineCount").text(onlineUsersCount <= 9 ? `0${onlineUsersCount}` : onlineUsersCount);
             if (sound) popUp.play();
@@ -286,24 +284,25 @@ const typingListener = () => {
 
     const resetTyping = debounce(() => {
         typingStatus.update({
-            status: 0,
-            name: currentUserName,
+            isTyping: false,
+            username: currentUserName,
         });
     }, 1000);
 
     const startTyping = () => {
         typingStatus.update({
-            status: 1,
-            name: currentUserName,
+            isTyping: true,
+            username: currentUserName,
         });
         resetTyping();
     };
 
+    typingStatus.onDisconnect().remove()
+
     typingStatus.on("value", (snapshot) => {
-        const { status, name } = snapshot.val();
-        if (status > 0) {
-            console.log(`${name} Typing....`);
-            $(".typingStatus p").text(`${name} is typing...`);
+        const { isTyping, username } = snapshot.val();
+        if (isTyping) {
+            $(".typingStatus p").text(`${username} is typing...`);
             gsap.to(".typingStatus", {
                 top: "4.5em",
                 ease: "elastic",
@@ -366,10 +365,12 @@ window.addEventListener("load", async () => {
     onlineUsersListener();
     typingListener();
 
+    
     $(".status-container").on("click", toogleOnlineUsersPage);
     $(".settingIcon").on("click", toogleSettingPage);
     $("button.sound").on("click", toogleSound);
     $("button.scroll").on("click", toogleScroll);
     $("button.logout").on("click", logOut);
     $("button.viewSource").on("click", viewSource);
+
 });

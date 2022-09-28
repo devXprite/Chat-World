@@ -2,7 +2,7 @@
 const firebaseConfig = {
     apiKey: "",
     authDomain: "",
-    databaseURL: "https://advance-chat-app-7629a-default-rtdb.firebaseio.com",
+    databaseURL: "https://worldchatapp-devxprite-default-rtdb.firebaseio.com",
     projectId: "",
     storageBucket: "",
     messagingSenderId: "",
