@@ -252,6 +252,15 @@ header {
                     animation-delay: $i * 0.1s;
                 }
             }
+            @keyframes wave {
+                0%,
+                100% {
+                    transform: scale(0);
+                }
+                50% {
+                    transform: scale(1);
+                }
+            }
         }
     }
 }
@@ -527,15 +536,5 @@ main {
             width: $sidePagesWidth;
             left: $chatScreenWidth + $sidePagesWidth;
         }
-    }
-}
-
-@keyframes wave {
-    0%,
-    100% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1);
     }
 }

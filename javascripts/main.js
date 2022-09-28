@@ -183,7 +183,7 @@ const submitMessage = (message) => {
     });
 };
 
-const checkNewMsg = () => {
+const newMsgListener = () => {
     db.ref("messages").limitToLast(1).on("child_added", (data) => {
         try {
             appendMessage(data.key, data.val());
@@ -193,7 +193,7 @@ const checkNewMsg = () => {
     });
 };
 
-const checkFormSubmit = () => {
+const formSubmitListener = () => {
     $(document).on("submit", "#msgForm", (e) => {
         e.preventDefault();
         submitMessage($("#inputmsg").val());
@@ -210,7 +210,25 @@ const loadOldChat = async (count = 100) => new Promise(async (resolve) => {
     resolve();
 });
 
-const checkOnlineUsers = () => {
+const debounce = (func, wait, immediate) => {
+    let timeout;
+    return function () {
+        // eslint-disable-next-line unicorn/no-this-assignment
+        const context = this;
+        // eslint-disable-next-line prefer-rest-params
+        const args = arguments;
+        const later = () => {
+            timeout = undefined;
+            if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
+const onlineUsersListener = () => {
     const onlineUsers = db.ref("onlineUsers/");
     const currentOnlineUser = db.ref(`onlineUsers/${currentUserName}`);
 
@@ -259,28 +277,11 @@ const checkOnlineUsers = () => {
             console.table(usersArr);
 
             $(".onlineCount").text(onlineUsersCount <= 9 ? `0${onlineUsersCount}` : onlineUsersCount);
+            if (sound) popUp.play();
         });
 };
 
-const debounce = (func, wait, immediate) => {
-    let timeout;
-    return function () {
-        // eslint-disable-next-line unicorn/no-this-assignment
-        const context = this;
-        // eslint-disable-next-line prefer-rest-params
-        const args = arguments;
-        const later = () => {
-            timeout = undefined;
-            if (!immediate) func.apply(context, args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
-};
-
-const ckeckTyping = () => {
+const typingListener = () => {
     const typingStatus = db.ref("typingStatus");
 
     const resetTyping = debounce(() => {
@@ -343,9 +344,13 @@ const toogleScroll = () => {
 };
 
 const logOut = () => {
-    localStorage.clear();
+    if (Modernizr.localstorage) localStorage.clear();
     window.location.reload();
 };
+
+const viewSource = () =>{
+    window.location.href = 'https://github.com/devXprite/realtime-chat-app';
+}
 
 window.addEventListener("load", async () => {
     window.currentUserName = await getCurrentUserName();
@@ -356,14 +361,15 @@ window.addEventListener("load", async () => {
     await loadOldChat();
     await hideWelcomeScreen();
 
-    checkNewMsg();
-    checkFormSubmit();
-    checkOnlineUsers();
-    ckeckTyping();
+    newMsgListener();
+    formSubmitListener();
+    onlineUsersListener();
+    typingListener();
 
     $(".status-container").on("click", toogleOnlineUsersPage);
     $(".settingIcon").on("click", toogleSettingPage);
     $("button.sound").on("click", toogleSound);
     $("button.scroll").on("click", toogleScroll);
     $("button.logout").on("click", logOut);
+    $("button.viewSource").on("click", viewSource);
 });
