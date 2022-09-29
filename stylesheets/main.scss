@@ -22,6 +22,16 @@ html,
     scroll-behavior: smooth;
 }
 
+P::-moz-selection {
+    color: #000;
+    background: chartreuse;
+}
+
+p::selection {
+    color: #000;
+    background: chartreuse;
+}
+
 @mixin gradientText($gradient: $gradient1) {
     background: $gradient;
     background-clip: text;
@@ -149,7 +159,27 @@ header {
             text-align: center;
             margin: 0.3em 0px;
             font-size: 1.8em;
-            @include gradientText($gradient2);
+            font-weight: lighter;
+            // @include gradientText($gradient2);
+            font-family: "Rubik", sans-serif;
+            background: linear-gradient(141.27deg, #ff904e -4.24%, #ff5982 21.25%, #ec68f4 44.33%, #79e2ff 83.46%);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+
+            animation: gradientHeading 10s ease infinite;
+
+            @keyframes gradientHeading {
+                0%,
+                100% {
+                    background-position: 0 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+            }
         }
     }
 
