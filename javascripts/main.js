@@ -351,6 +351,10 @@ const viewSource = () =>{
     window.location.href = 'https://github.com/devXprite/realtime-chat-app';
 }
 
+const bugReport = () =>{
+    window.location.href = `https://github.com/devXprite/world-chatapp/issues/new?labels=bug&title=New+bug&body=Describe+the+problem`
+}
+
 window.addEventListener("load", async () => {
     window.currentUserName = await getCurrentUserName();
     window.currentCountry = await getCurrentCountry();
@@ -372,5 +376,6 @@ window.addEventListener("load", async () => {
     $("button.scroll").on("click", toogleScroll);
     $("button.logout").on("click", logOut);
     $("button.viewSource").on("click", viewSource);
+    $("button.bugReport").on("click", bugReport);
 
 });

@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "normalize";
-@import url("https://fonts.googleapis.com/css2?family=Electrolize&family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&family=Ubuntu:ital,wght@0,300;0,400;1,300;1,400&family=Rubik:wght@300&display=swap");
 
 $background-color: #181818;
 $primary-color: #cfcfcf;
@@ -408,6 +408,10 @@ main {
 
             &.viewSource {
                 background: $gradient1;
+            }
+
+            &.bugReport {
+                background: $gradient3;
             }
         }
     }
