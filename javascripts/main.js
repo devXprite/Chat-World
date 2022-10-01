@@ -167,7 +167,7 @@ const appendMessage = (key, messagesData) => {
         </div>
     `);
 
-        if (autoScroll) window.location.href = `#${key}`;
+        if (autoScroll) $(`#${key}`).get(0).scrollIntoView();
         if (sound) popUp.play();
     } catch (error) {
         console.log(error);
@@ -244,7 +244,7 @@ const onlineUsersListener = () => {
 
     onlineUsers
         .orderByChild("lastSeen")
-        .limitToLast(40)
+        .limitToLast(20)
         .on("value", (snapshot) => {
             $(".onlineUsers-container").html("");
 
