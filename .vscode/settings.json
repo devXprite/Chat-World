@@ -1,4 +1,16 @@
 {
     "editor.formatOnSave": true,
-    "eslint.format.enable": true
+    "eslint.format.enable": true,
+    "files.exclude": {
+        ".eslintignore": true,
+        ".github": true,
+        "CODE_OF_CONDUCT.md": true,
+        "CONTRIBUTING.md": true,
+        "node_modules": true,
+        "package-lock.json": true,
+        "pnpm-lock.yaml": true,
+        ".prettierignore": true,
+        "LICENSE" : true,
+        ".vscode": true,
+    }
 }

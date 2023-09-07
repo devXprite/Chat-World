@@ -8,7 +8,7 @@
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "format": "npm run prettier:fix && npm run lint:fix",
-    "watch": "sass --watch stylesheets/main.scss stylesheets/main.min.css -s compressed -q"
+    "watch": "sass --watch ./assets/scss:./assets/css --no-source-map -s compressed -c"
   },
   "keywords": [],
   "author": "",

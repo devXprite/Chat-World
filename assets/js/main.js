@@ -2,7 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
 const db = firebase.database();
-const popUp = new Audio("../sound/popUp.mp3");
+const popUp = new Audio("/assets/audio/popUp.mp3");
 
 const getCurrentUserName = async () => new Promise((resolve) => {
     if (Modernizr.localstorage && localStorage.username) {
@@ -238,7 +238,7 @@ const onlineUsersListener = () => {
     });
 
     currentOnlineUser.onDisconnect().set({
-        isOnline:false,
+        isOnline: false,
         lastSeen: firebase.database.ServerValue.TIMESTAMP,
     });
 
@@ -253,7 +253,7 @@ const onlineUsersListener = () => {
             let usersArr = Object.keys(userObj).map((key) => ({
                 key,
                 status: userObj[key].isOnline ? "online" : "offline",
-                lastSeen: userObj[key].lastSeen ,
+                lastSeen: userObj[key].lastSeen,
             }));
 
             const onlineUsersCount = usersArr.filter((user) => user.status === "online").length;
@@ -347,11 +347,11 @@ const logOut = () => {
     window.location.reload();
 };
 
-const viewSource = () =>{
+const viewSource = () => {
     window.location.href = 'https://github.com/devXprite/realtime-chat-app';
 }
 
-const bugReport = () =>{
+const bugReport = () => {
     window.location.href = `https://github.com/devXprite/world-chatapp/issues/new?labels=bug&title=New+bug&body=Describe+the+problem`
 }
 
@@ -369,7 +369,7 @@ window.addEventListener("load", async () => {
     onlineUsersListener();
     typingListener();
 
-    
+
     $(".status-container").on("click", toogleOnlineUsersPage);
     $(".settingIcon").on("click", toogleSettingPage);
     $("button.sound").on("click", toogleSound);

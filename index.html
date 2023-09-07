@@ -5,39 +5,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Primary Meta Tags -->
     <title>Chat World</title>
     <meta name="title" content="Chat World" />
     <meta name="description" content="This is a simple Realtime Chat app using Firebase. Here you can chat with anyone without Login or SignUP. It
         helps you to meet new people and make new friends." />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://chatapp.js.org/" />
     <meta property="og:title" content="Chat World" />
     <meta property="og:description" content="This is a simple Realtime Chat app using Firebase. Here you can chat with anyone without Login or SignUP. It
         helps you to meet new people and make new friends." />
-    <meta property="og:image" content="./images/screenshot_pc.png" />
+    <meta property="og:image" content="./assets/img/screenshot_pc.png" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://chatapp.js.org/" />
     <meta property="twitter:title" content="Chat World" />
     <meta property="twitter:description" content="This is a simple Realtime Chat app using Firebase. Here you can chat with anyone without Login or SignUP. It
         helps you to meet new people and make new friends." />
-    <meta property="twitter:image" content="./images/screenshot_pc.png" />
+    <meta property="twitter:image" content="./assets/img/screenshot_pc.png" />
 
-    <link rel="stylesheet" href="./stylesheets/main.min.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KEZHDV7Y1X"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+        function gtag() { dataLayer.push(arguments) }
         gtag('js', new Date());
-
         gtag('config', 'G-KEZHDV7Y1X');
     </script>
 </head>
@@ -54,7 +45,7 @@
         </div>
 
         <div class="settingIcon">
-            <img src="./images/settingIcon.svg" alt="" srcset="">
+            <img src="./assets/img/settingIcon.svg" alt="" srcset="">
         </div>
     </header>
 
@@ -107,28 +98,27 @@
             <input type="text" id="inputmsg" placeholder="write your message here..." minlength="2" maxlength="255"
                 autocomplete="off" required>
             <button type="submit">
-                <img src="./images/paper-plane.png" alt="" srcset="">
+                <img src="./assets/img/paper-plane.png" alt="" srcset="">
             </button>
         </form>
     </main>
 
-    <!-- scripts -->
+    <script src="./vendors/firebase-app.min.js"></script>
+    <script src="./vendors/firebase-database.min.js"></script>
+    <script src="./vendors/jquery.min.js"></script>
+    <script src="./vendors/lodash.min.js"></script>
+    <script src="./vendors/gsap.min.js"></script>
+    <script src="./vendors/spamFilter.js"></script>
+    <script src="./vendors/linkify.min.js"></script>
+    <script src="./vendors/linkify-string.min.js"></script>
+    <script src="./vendors/modernizr.min.js"></script>
+    <script src="./vendors/moment.min.js"></script>
+    <script src="./vendors/moment-timezone-with-data.min.js"></script>
+    <script src="./vendors/xss.min.js"></script>
+    <script src="./vendors/countryFlags.min.js"></script>
 
-    <script src="./javascripts/firebase-app.min.js"></script>
-    <script src="./javascripts/firebase-database.min.js"></script>
-    <script src="./javascripts/jquery.min.js"></script>
-    <script src="./javascripts/lodash.min.js"></script>
-    <script src="./javascripts/gsap.min.js"></script>
-    <script src="./javascripts/spamFilter.js"></script>
-    <script src="./javascripts/linkify.min.js"></script>
-    <script src="./javascripts/linkify-string.min.js"></script>
-    <script src="./javascripts/modernizr.min.js"></script>
-    <script src="./javascripts/moment.min.js"></script>
-    <script src="./javascripts/moment-timezone-with-data.min.js"></script>
-    <script src="./javascripts/xss.min.js"></script>
-    <script src="./javascripts/countlyFlags.min.js"></script>
     <script src="./firebaseConfig.js"></script>
-    <script src="./javascripts/main.js"></script>
+    <script src="./assets/js/main.js"></script>
 
 </body>
 
