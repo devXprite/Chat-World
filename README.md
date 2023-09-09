@@ -1,5 +1,3 @@
-
-
 <div align="center">
   </a>
   <h3 align="center">Realtime Web Chatapp</h3>
@@ -18,12 +16,13 @@
 </div>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 <!-- [![Product Name Screen Shot][product-screenshot]](#) -->
 
 This is a simple Realtime Chat app using Firebase. Here you can chat with anyone without Login or SignUP. It
-        helps you to meet new people and make new friends.
+helps you to meet new people and make new friends.
 
 <!-- Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
@@ -32,18 +31,17 @@ This is a simple Realtime Chat app using Firebase. Here you can chat with anyone
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ### Built With
 
-* [JQuery](https://jquery.com)
-* [FireBase](https://firebase.google.com/)
-* [Modernizr ](https://modernizr.com/)
-* [GSAP](https://greensock.com/gsap/)
+-   [JQuery](https://jquery.com)
+-   [FireBase](https://firebase.google.com/)
+-   [Modernizr ](https://modernizr.com/)
+-   [GSAP](https://greensock.com/gsap/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
@@ -52,31 +50,30 @@ To get a local copy up and running follow these simple example steps.
 
 For you to be able to understant code, it will be nice if you have basic understanding of HTML, CSS and JavaScript.
 
-
 ### Installation
 
 1. Get the snippet for your app's Firebase config object [https://console.firebase.google.com/](https://console.firebase.google.com/)
 2. Clone the repo
-   ```sh
-   git clone https://github.com/devxprite/realtime-chat-app.git
-   ```
+    ```sh
+    git clone https://github.com/devxprite/realtime-chat-app.git
+    ```
 3. Enter snippet in `firebaseConfig.js` like this:
-   ```js
-   const firebaseConfig = {
+
+    ```js
+    const firebaseConfig = {
         apiKey: process.env.apiKey,
         authDomain: process.env.authDomain,
         databaseURL: process.env.databaseURL,
         projectId: process.env.projectId,
         storageBucket: process.env.storageBucket,
         messagingSenderId: process.env.messagingSenderId,
-        appId: process.env.appId
+        appId: process.env.appId,
     };
 
     firebase.initializeApp(firebaseConfig);
-   ```
+    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ## Contributing
 
@@ -93,9 +90,8 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.

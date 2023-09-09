@@ -1,0 +1,98 @@
+@mixin gradientText($gradient: $gradient1) {
+    background: $gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: lighter;
+}
+
+@mixin gradientBorder($border: 1px, $background: #000, $gradient) {
+    position: relative;
+
+    background: $background;
+    background-clip: padding-box;
+    border: solid $border transparent;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        margin: -$border;
+        border-radius: inherit;
+        background: $gradient;
+    }
+}
+
+@mixin box() {
+    margin: 0.3rem 0.8rem;
+    border-radius: 0.35rem;
+    background-color: darken($background-color, 2);
+    background: linear-gradient(140deg, #010101, #141414);
+    box-shadow: #000 2px 2px 2px, inset #3a3a3a 2px 2px 2px;
+    transition: transform 0.5s;
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow: #000 2px 2px 4px, inset #3a3a3a 2px 2px 2px;
+    }
+}
+
+@mixin scrollBar($color: #999, $width: 8px, $backgrounds: #000) {
+    &::-webkit-scrollbar {
+        border-radius: 5px;
+        height: 10px;
+        width: $width;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $color;
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: $backgrounds;
+    }
+
+    overflow-y: auto;
+
+    @include large-screen {
+        overflow-y: scroll;
+    }
+}
+
+@mixin noScrollBar() {
+    &::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        height: 0;
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+        height: 0;
+        width: 0;
+    }
+}
+
+@mixin led($size: "0.25rem", $color) {
+    display: block;
+    width: $size;
+    height: $size;
+    background-color: $color;
+    border-radius: 50%;
+    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset darken($color, 25) 0 -1px 9px, darken($color, 2) 0 2px 12px;
+}
+
+@mixin large-screen {
+    @media screen and (min-width: 600px) {
+        @content;
+    }
+}

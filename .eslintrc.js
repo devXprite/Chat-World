@@ -6,11 +6,11 @@ module.exports = {
         node: true,
         jquery: true,
     },
-    extends: ["prettier", "airbnb-base", "plugin:unicorn/recommended"],
+    extends: ["prettier", "airbnb-base"],
     parserOptions: {
         ecmaVersion: "latest",
     },
-    plugins: ["unicorn", "prettier"],
+    plugins: ["prettier"],
     rules: {
         "unicorn/prefer-top-level-await": "off",
         "unicorn/prefer-module": "off",

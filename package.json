@@ -1,26 +1,29 @@
 {
-  "name": "World ChatApp",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "lint": "eslint . --ext .js",
-    "lint:fix": "eslint . --ext .js --fix",
-    "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write .",
-    "format": "npm run prettier:fix && npm run lint:fix",
-    "watch": "sass --watch ./assets/scss:./assets/css --no-source-map -s compressed -c"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^8.21.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-unicorn": "^43.0.2",
-    "node-sass": "^7.0.3",
-    "prettier": "2.7.1"
-  }
+    "name": "World ChatApp",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "lint": "eslint . --ext .js",
+        "lint:fix": "eslint . --ext .js --fix",
+        "prettier": "prettier --check .",
+        "prettier:fix": "prettier --write .",
+        "format": "npm run prettier:fix && npm run lint:fix",
+        "watch": "sass --watch ./assets/scss:./assets/css --no-source-map -s compressed -c",
+        "start": "http-server -p 3000"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "concurrently": "^8.2.1",
+        "eslint": "^8.21.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-unicorn": "^43.0.2",
+        "http-server": "^14.1.1",
+        "node-sass": "^7.0.3",
+        "prettier": "2.7.1"
+    }
 }

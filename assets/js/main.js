@@ -70,15 +70,15 @@ const toogleOnlineUsersPage = () => {
         ease: "bounce",
     };
 
-    if (gsap.getProperty(".settingsPage", "left") === 0) {
-        gsap.to(".settingsPage", {
+    if (gsap.getProperty(".about", "left") === 0) {
+        gsap.to(".about", {
             left: "100%",
             ...opts,
         });
     }
 
-    if (gsap.getProperty(".onlineUsersPage", "left") !== 0) {
-        gsap.to(".onlineUsersPage", {
+    if (gsap.getProperty(".online_users", "left") !== 0) {
+        gsap.to(".online_users", {
             left: "0%",
             ...opts,
         });
@@ -87,14 +87,14 @@ const toogleOnlineUsersPage = () => {
     }
 
     if ($(window).width() > 600) {
-        gsap.to(".onlineUsersPage", {
+        gsap.to(".online_users", {
             left: "-20%",
             ...opts,
         });
         return;
     }
 
-    gsap.to(".onlineUsersPage", {
+    gsap.to(".online_users", {
         left: "-100%",
         ...opts,
     });
@@ -107,13 +107,13 @@ const toogleSettingPage = () => {
     };
 
     if ($(window).width() > 600) {
-        if (gsap.getProperty(".settingsPage", "left") !== 100) {
-            gsap.to(".settingsPage", {
+        if (gsap.getProperty(".about", "left") !== 100) {
+            gsap.to(".about", {
                 left: "100%",
                 ...opts,
             });
         } else {
-            gsap.to(".settingsPage", {
+            gsap.to(".about", {
                 left: "80%",
                 ...opts,
             });
@@ -121,22 +121,22 @@ const toogleSettingPage = () => {
         return;
     }
 
-    if (gsap.getProperty(".onlineUsersPage", "left") === 0) {
-        gsap.to(".onlineUsersPage", {
+    if (gsap.getProperty(".online_users", "left") === 0) {
+        gsap.to(".online_users", {
             left: "-100%",
             ...opts,
         });
     }
 
-    if (gsap.getProperty(".settingsPage", "left") !== 0) {
-        gsap.to(".settingsPage", {
+    if (gsap.getProperty(".about", "left") !== 0) {
+        gsap.to(".about", {
             left: "0%",
             ...opts,
         });
 
         return;
     }
-    gsap.to(".settingsPage", {
+    gsap.to(".about", {
         left: "100%",
         ...opts,
     });
@@ -152,9 +152,7 @@ const appendMessage = (key, messagesData) => {
         const type = window.currentUserName === name ? "send" : "receive";
 
         const timestamp = messagesData.serverTimestamp;
-        const sendingTime = moment(timestamp).format(
-            "DD MMMM YYYY, h:mm a",
-        );
+        const sendingTime = moment(timestamp).format("DD MMMM YYYY, h:mm a");
         const countryName = countryFlags[messagesData.country].name;
         const countryEmoji = countryFlags[messagesData.country].emoji;
 
@@ -184,17 +182,19 @@ const submitMessage = (message) => {
 };
 
 const newMsgListener = () => {
-    db.ref("messages").limitToLast(1).on("child_added", (data) => {
-        try {
-            appendMessage(data.key, data.val());
-        } catch (error) {
-            console.log(error);
-        }
-    });
+    db.ref("messages")
+        .limitToLast(1)
+        .on("child_added", (data) => {
+            try {
+                appendMessage(data.key, data.val());
+            } catch (error) {
+                console.log(error);
+            }
+        });
 };
 
 const formSubmitListener = () => {
-    $(document).on("submit", "#msgForm", (e) => {
+    $(document).on("submit", "#input_box", (e) => {
         e.preventDefault();
         submitMessage($("#inputmsg").val());
         $("#inputmsg").val("");
@@ -205,7 +205,11 @@ const formSubmitListener = () => {
 const loadOldChat = async (count = 120) => new Promise(async (resolve) => {
     const data = await db.ref("messages").limitToLast(count).once("value");
     const snapshots = data.val();
-    if (snapshots) Object.keys(snapshots).forEach((key) => { appendMessage(key, snapshots[key]); });
+    if (snapshots) {
+        Object.keys(snapshots).forEach((key) => {
+            appendMessage(key, snapshots[key]);
+        });
+    }
 
     resolve();
 });
@@ -246,7 +250,7 @@ const onlineUsersListener = () => {
         .orderByChild("lastSeen")
         .limitToLast(20)
         .on("value", (snapshot) => {
-            $(".onlineUsers-container").html("");
+            $(".users_list").html("");
 
             const userObj = snapshot.val();
 
@@ -263,18 +267,20 @@ const onlineUsersListener = () => {
             usersArr.map((user) => {
                 const { key, lastSeen, status } = user;
 
-                $(".onlineUsers-container").append(`
-                <div class="onlineUser">
+                $(".users_list").append(`
+                <div class="user">
                    <div class="details">
                        <p class="name">${filterXSS(key)}</p>
-                       <p class="lastSeen"><b>Last Seen: </b><span>${lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm a")}</span></p>
+                       <p class="last_seen"><b>Last Seen: </b><span>${
+    lastSeen === 2000000000000 ? "Online" : moment(lastSeen).format("Do MMMM YYYY, h:mm a")
+}</span></p>
                    </div>
                    <i class="status ${status}"> </i>
                </div>
                `);
             });
 
-            $(".onlineCount").text(onlineUsersCount <= 9 ? `0${onlineUsersCount}` : onlineUsersCount);
+            $(".online_count").text(onlineUsersCount <= 9 ? `0${onlineUsersCount}` : onlineUsersCount);
             if (sound) popUp.play();
         });
 };
@@ -297,20 +303,20 @@ const typingListener = () => {
         resetTyping();
     };
 
-    typingStatus.onDisconnect().remove()
+    typingStatus.onDisconnect().remove();
 
     typingStatus.on("value", (snapshot) => {
         const { isTyping, username } = snapshot.val();
         if (isTyping) {
-            $(".typingStatus p").text(`${username} is typing...`);
-            gsap.to(".typingStatus", {
-                top: "4.5em",
+            $(".typing_status p").text(`${username} is typing...`);
+            gsap.to(".typing_status", {
+                top: "3.8rem",
                 ease: "elastic",
                 duration: 0.5,
             });
         } else {
-            gsap.to(".typingStatus", {
-                top: "3em",
+            gsap.to(".typing_status", {
+                top: "2rem",
                 ease: "elastic",
                 duration: 0.5,
             });
@@ -348,12 +354,12 @@ const logOut = () => {
 };
 
 const viewSource = () => {
-    window.location.href = 'https://github.com/devXprite/realtime-chat-app';
-}
+    window.location.href = "https://github.com/devXprite/realtime-chat-app";
+};
 
 const bugReport = () => {
-    window.location.href = `https://github.com/devXprite/world-chatapp/issues/new?labels=bug&title=New+bug&body=Describe+the+problem`
-}
+    window.location.href = "https://github.com/devXprite/world-chatapp/issues/new?labels=bug&title=New+bug&body=Describe+the+problem";
+};
 
 window.addEventListener("load", async () => {
     window.currentUserName = await getCurrentUserName();
@@ -369,13 +375,11 @@ window.addEventListener("load", async () => {
     onlineUsersListener();
     typingListener();
 
-
-    $(".status-container").on("click", toogleOnlineUsersPage);
-    $(".settingIcon").on("click", toogleSettingPage);
+    $(".online_status").on("click", toogleOnlineUsersPage);
+    $(".setting.icon").on("click", toogleSettingPage);
     $("button.sound").on("click", toogleSound);
     $("button.scroll").on("click", toogleScroll);
     $("button.logout").on("click", logOut);
     $("button.viewSource").on("click", viewSource);
     $("button.bugReport").on("click", bugReport);
-
 });

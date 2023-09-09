@@ -4,13 +4,13 @@
     "files.exclude": {
         ".eslintignore": true,
         ".github": true,
+        ".prettierignore": true,
+        ".vscode": true,
         "CODE_OF_CONDUCT.md": true,
         "CONTRIBUTING.md": true,
+        "LICENSE": true,
         "node_modules": true,
         "package-lock.json": true,
-        "pnpm-lock.yaml": true,
-        ".prettierignore": true,
-        "LICENSE" : true,
-        ".vscode": true,
+        "pnpm-lock.yaml": true
     }
 }
