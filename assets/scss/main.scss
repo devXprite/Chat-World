@@ -81,6 +81,7 @@ header {
         animation: gradientHeading 10s ease infinite;
 
         @keyframes gradientHeading {
+
             0%,
             100% {
                 background-position: 0 50%;
@@ -196,6 +197,7 @@ header {
             }
 
             @keyframes wave {
+
                 0%,
                 100% {
                     transform: scale(0);
@@ -234,6 +236,7 @@ header {
 }
 
 main {
+
     .online_users,
     form#input_box,
     .about,
@@ -253,7 +256,7 @@ main {
             padding: 0px 1.25rem;
         }
 
-        & > h2 {
+        &>h2 {
             text-align: center;
             font-size: 1.8rem;
             margin: 3rem 0px 2rem 0px;
@@ -267,7 +270,7 @@ main {
         cursor: pointer;
         @include scrollBar($gradient1, 0.2em);
 
-        & > h2 {
+        &>h2 {
             @include gradientText($gradient1);
         }
 
@@ -368,7 +371,7 @@ main {
         @include scrollBar($gradient3, 0.2em);
         height: calc(100vh - ($headerHeight + $footerHeight));
 
-        & > div:last-child {
+        &>div:last-child {
             margin-bottom: 4rem;
         }
 
@@ -442,7 +445,7 @@ main {
 
         height: $footerHeight;
         min-height: $minHeight;
-        bottom: 0;
+        bottom: 0.5rem;
         z-index: 1;
         display: grid;
         grid-template-columns: 5fr 1fr;

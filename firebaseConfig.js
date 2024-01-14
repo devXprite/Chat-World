@@ -1,13 +1,6 @@
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "https://worldchatapp-devxprite-default-rtdb.firebaseio.com",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: "",
+    databaseURL: "https://worldchatapp-devxprite-default-rtdb.firebaseio.com"
 };
 
 // Initialize Firebase
